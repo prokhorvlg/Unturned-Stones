@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <title>Unturned △ Stones</title>
+
+    <!--     jQuery     -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!--		jQuery PLUGIN: Shuffle Letters Effect		-->
+    <script src="js/jquery.shuffleLetters.js"></script>
+
+    <!-- Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.css" rel="stylesheet">
+    <script src="js/headScript.js"></script>
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <!--<nav class="navbar navbar-expand-lg navbar-light fixed-top webFontsRoboto" id="mainNav">
+      <div class="container">
+        <h1><a class="navbar-brand" href="#page-top"><img class="navLogo" src="./img/UNTSlogo.svg"/></a></h1>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">:Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">:Learn</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#portfolio">:Explore</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">:Investigate</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">:Extras</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">:About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>-->
+
+    <nav>
+      <div id="logo">Demo Page</div>
+      <label for="drop" class="toggle">Menu</label>
+      <input type="checkbox" id="drop" />
+      <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li>
+          <!-- First Tier Drop Down -->
+          <label for="drop-1" class="toggle">Service +</label>
+          <a href="#">Service</a>
+          <input type="checkbox" id="drop-1"/>
+          <ul>
+            <li><a href="#">Service 1</a></li>
+            <li><a href="#">Service 2</a></li>
+            <li><a href="#">Service 3</a></li>
+          </ul>
+        </li>
+        <li>
+
+          <!-- First Tier Drop Down -->
+          <label for="drop-2" class="toggle">Portfolio +</label>
+          <a href="#">Portfolio</a>
+          <input type="checkbox" id="drop-2"/>
+          <ul>
+            <li><a href="#">Portfolio 1</a></li>
+            <li><a href="#">Portfolio 2</a></li>
+            <li> 
+
+              <!-- Second Tier Drop Down -->
+              <label for="drop-3" class="toggle">Works +</label>
+              <a href="#">Works</a>
+              <input type="checkbox" id="drop-3"/>
+              <ul>
+                <li><a href="#">HTML/CSS</a></li>
+                <li><a href="#">jQuery</a></li>
+                <li><a href="#">Python</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Submit</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+
+    <!--<div class="p_anim" id="p-1"></div>
+    <div class="p_anim" id="p-2"></div>
+    <div class="p_anim" id="p-3"></div>
+    <div class="p_anim" id="p-4"></div>
+    <div class="p_anim" id="p-5"></div>-->
+
+    <header class="masthead parallax_ns6">
+      <div class="header-content">
+        <div class="header-content-inner">
+          <h1 id="homeHeading">Unturned<img src="./img/UNTSlogo.svg" /><span class="boldSpan" style="font-weight: 700;">Stones</span></h1>
+          <!--<a class="btn btn-primary btn-xl" href="#about">Find Out More</a>-->
+        </div>
+      </div>
+    </header>
+
+    <section id="quote" class="bg-dark2" style="padding: 0px; height: 0px; opacity: 0.2;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <p class="quoteShuffle" id="mainQuote" style="font-family: 'Roboto Condensed', Arial, sans-serif;"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0" id="featured">
+      <div class="container-fluid">
+        <div class="row no-gutter popup-gallery">
+          <div class="col-lg-8 col-sm-6 bg-dark order-md-2" style="min-height: 300px;">
+            <a class="portfolio-box gradient-overlay-dark" href="img/infographics/boring.png" target="_blank" style="background-image: url(img/infographics/boring.png); background-size: auto; height: 100%; width: 100%; background-position: 50% 50%;">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-name">
+                    The Boring Rocket
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6 bg-dark order-md-1" style="padding-right: 20px; padding-top: 50px; padding-left: 30px; padding-bottom: 50px;">
+            <h2 class="section-heading text-white"><img src="img/icons/featured.png" width="50" style="margin-bottom: 10px;" />Featured Update</h2>
+            <hr class="light" style="margin-left: 0px;">
+            <p class="text-faded"><span style="font-size: 1.1em;">P-IV BigMole | <em>American Industrial Excavator and Refinery</em></span></p>
+            <p class="text-faded">The BigMole is still in operation after over 4 decades of service since it rolled off the Reinhart HIC production line. It has been modernized numerous times to keep up with automation trends and efficiency standards, and is currently operated by a distant subsidiary of the interstellar giant, CAUCorp.</p>
+            <div class="buttonCenter"><a class="btn" href="#">Browse Starscrapers</a></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!--<section id="intro" class="bg-dark2 parallax_ns6" style="background-image: url(./img/background-main/spacebg.png), url(./img/background-main/mainbg.png); animation: 100s scrollBG2 infinite linear; height: 100%; padding: 0; ">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12" style="margin-top: 100px; min-height: 40vh;">
+            <h1>Look closer.</h1>
+            <div style="height: 50px;"></div>
+            <p>For even centuries after mankind abandoned Earth to settle the distant stars</p>
+            <p>After mankind invented the prosthetic conscious and deemed morality outdated,</p>
+            <p>And the total suppression of mankind under the fist of social engineering...</p>
+            <div style="height: 50px;"></div>
+            <h3>A glimmer of humanity's soul shines through.</h3>
+          </div>
+
+        </div>
+      </div>
+      <div style="background-image: url(img/background-main/first_bg_crop_paint.png); width: 100%; height: 100%; background-position: 50% top; background-size: cover; margin-top: calc(-40vh - 100px); background-repeat: no-repeat;" ></div>
+    </section>-->
+
+    <section id="intro2" class="bg-dark2">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2>Welcome to the world of Unturned Stones</h2>
+            <hr class="full">
+            <p>Unturned Stones is a worldbuilding project; essentially, it is a fictional setting developed for the sake of <span style="text-decoration: line-through;">futility</span> immersing a viewer in a world very different from our own. It might become the grounds for a short story, a video game, a board game, or one of a million other things - but for now, enjoy the scenery!</p>
+            <p>Make sure to visit the subreddit <a href="https://www.reddit.com/r/worldbuilding/" target="_blank">/r/worldbuilding</a> to learn more, and feel free to join the associated Discord chat server.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="intro2" class="bg-dark parallax_ns4" style="background-image: url(img/background-main/nedrybg.png); background-size: cover; background-position: right bottom; background-repeat: no-repeat;">
+      <div class="container" style="">
+        <div class="row">
+          <div class="col-lg-6 text-left">
+            <h2>A bittersweet era</h2>
+            <hr class="light" style="margin-left: 0px;">
+            <p class="text-justify">Unturned Stones takes place in a distant future where Earth has been long abandoned by humans.</p>
+            <p class="text-justify">What is left of mankind are the descendants of people who left home during a time of turmoil and disaster. These pioneers made their journey to a region of space proven to contain habitable planets, many lightcenturies away, on great relativistic arkships; each constructed and sent out by the various nations of the time.</p>
+            <p class="text-justify">Over the course of centuries, some of these landed and started civilization anew, with Earth becoming a more faded yet fabled memory with every passing year. Their descendants, the people living today, have since returned to the stars and have rediscovered each other, forming an interstellar community rife with international tension.
+            <p class="text-justify">Mankind has become imbued with fiery passions for ideologies and philosophies that should never have existed. They rose out of desperate colonial conditions, conditions that have long since gone and - in fact - completely reversed, but have left their scar on the face of humanity. Morality and ethics have been mutilated without so much as a struggle - for the sake of survival.</p>
+            <p class="text-justify">Most people are treated to a happy, satisfying life. The widespread advancement of social engineering and AI technology has led to docile, controllable populaces that function nearly perfectly as cohesive machines - cogs in weapons aimed against one another. Despite abundance and a persistent golden age, war is still around.</p>
+          </div>
+          <div class="col-lg-6 text-left">
+            <h2>...with an inevitable end</h2>
+            <hr class="light" style="margin-left: 0px;">
+            <p class="text-justify">But hope still exists.</p>
+            <p class="text-justify">While the vast majority is subdued unaware (the <em>terrestrials</em>), the brave minority that set out to colonize the stars has begun to rediscover what it means to be human.</p>
+            <p class="text-justify">These <em>spacers</em> are the only humans left who still suffer the hardships of life. Survival isn't guaranteed in the cold depths of space. But for them, even these conditions are worth the freedom that living on the fringe provides. Many have turned on their terrestrial brethren to begin lives no longer driven by disconnected masters.</p>
+            <h2>The unknown</h2>
+            <hr class="light" style="margin-left: 0px;">
+            <p class="text-justify">As time goes on, more and more people have made incredible and perplexing discoveries among the stars that only get stranger the deeper people go. Ancient, human ghost ships orbit black holes; ruins of civilizations long gone around husks of dead stars; the faint traces of yet-uninvented starship technology and odd time-loops. Signs that the truth behind all of these anomalies is suppressed by an unknown organization, for the sake of humanity's future.</p>
+            <p class="text-justify">Truths that some starship captains have begun to uncover.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0" id="history">
+      <div class="container-fluid">
+        <div class="row no-gutter popup-gallery">
+          <div class="col-lg-8 col-sm-6 bg-dark2 order-md-2" style="min-height: 300px;">
+            <a class="portfolio-box gradient-overlay-dark" style="background-image: url(img/background-main/rico2.png); background-size: auto; height: 100%; width: 100%; background-position: 60% 100%;">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-name">
+                    RICO
+                    <p><em>Regional Infrastructure Command AI</em></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6 bg-dark2 order-md-1" style="padding-right: 20px; padding-top: 50px; padding-left: 30px; padding-bottom: 50px;">
+            <h2 class="section-heading text-white"><img src="img/icons/history.png" width="50" style="margin-bottom: 10px;" />Discovering the future</h2>
+            <hr class="light" style="margin-left: 0px;">
+            <p class="text-faded"><span style="font-size: 1.1em;">Explore the history of Unturned Stones</span></p>
+            <p class="text-faded">Sometime in the distant past, the arkships left Earth. 435 years ago, one of them landed on a desolate, lifeless rock which the Arab-Persians ended up naming <em>Sakram</em>. Also 435 years ago, they decided that their only objective was to find a way off of <em>Sakram</em>.</p>
+            <p class="text-faded">They were, subsequently, the first to establish an interstellar empire. They were also the first to discover an ancient ghost ship, the remains of a past human civilization, slowly plummeting towards the event horizon of the Tupor black hole.</p>
+            <div class="buttonCenter"><a class="btn" href="#">History</a></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0" id="nations">
+      <div class="container-fluid">
+        <div class="row no-gutter popup-gallery">
+          <div class="col-md-8 col-sm-6 bg-dark2" style="min-height: 300px;">
+            <a class="portfolio-box gradient-overlay-dark imageNations">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-name">
+                    The Major Powers
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4 col-sm-6 bg-dark2" style="padding-right: 30px; padding-top: 50px; padding-left: 20px; padding-bottom: 50px;">
+            <h2 class="section-heading text-white"><img src="img/icons/powers.png" width="50" style="margin-bottom: 10px;" />A new regime</h2>
+            <hr class="light" style="margin-left: 0px;">
+            <p class="text-faded"><span style="font-size: 1.1em;">Who holds all of the power?</span></p>
+            <p class="text-faded">The majority of humanity and its influence is split over 5 major powers: the Confederacy, Federation, League, Empire, and Conglomerate. Their relationships are complicated, but simply put - tense. Each one is in it for itself, and each one is brimming with factions who bring their own philosophies and agendas to the table.</p>
+            <p class="text-faded">However, they are all mere pawns in a greater game; one which involves more than just humanity.</p>
+            <div class="buttonCenter"><a class="btn" href="./img/background-main/majorpowersthumb.png">Major Powers</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0" id="starscrapers">
+      <div class="container-fluid">
+        <div class="row no-gutter popup-gallery">
+          <div class="col-lg-8 col-sm-6 bg-dark2 order-md-2" style="min-height: 300px;">
+            <a class="portfolio-box gradient-overlay-dark" style="background-image: url(img/background-main/loxley_plain.png); background-size: auto; height: 100%; width: 100%; background-position: 50% 50%;">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-name">
+                    LW Lord of Loxley
+                    <p><em>League Insertion Frigate</em></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6 bg-dark2 order-md-1" style="padding-right: 20px; padding-top: 50px; padding-left: 30px; padding-bottom: 50px;">
+            <h2 class="section-heading text-white"><img src="img/icons/starscraper.png" width="50" style="margin-bottom: 10px;" />Starscrapers</h2>
+            <hr class="light" style="margin-left: 0px;">
+            <p class="text-faded"><span style="font-size: 1.1em;">Primary mode of space transportation</span></p>
+            <p class="text-faded">Spacecraft range in size from tiny, tub-sized lifepods to massive interstellar long-haulers. They are the lifeblood of the interstellar community, and, without a doubt, the way of the modern world. Despite the fact that the vast majority of humanity remains anchored to terrestrial worlds, space is where things happen - where nations exert their force, corporations do business, explorers uncover mysteries, and people make their fortunes.</p>
+            <p class="text-faded">Welcome <em>starscrapers</em>: enormous, space-borne monoliths accelerated constantly by fusion torches. Most of these are custom designed and commissioned for a specific purpose, much like skyscrapers - hence the name.</p>
+            <div class="buttonCenter"><a class="btn" href="./img/background-main/loxley_plain.png">Starscrapers</a></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="masthead parallax_ns6" style="background-image: url(img/background-main/mapbg.png);">
+      <div class="header-content">
+        <div class="header-content-inner">
+          <h1 id="homeHeading">Explore the world</h1>
+          <hr class="light">
+          <p class="text-faded"><span style="font-size: 1.1em;">Discover places in Unturned Stones</span></p>
+          <p class="text-faded">Many, many light years away, beyond the core worlds and bustling micropolises, beyond the starbases of the League and the colonies of the Major Powers, even beyond the very fringes of all human activity, lies the Rift.</p>
+          <p class="text-faded">The Rift isn't marked by any particular stellar object, nor is it something that can be readily marked, as it is a zone that seemingly fades into existence and stretches on endlessly. The only thing to suggest that one is travelling beyond the Rift is a steady increase in the rate of odd, unexplainable phenomena that seemingly get more drastic the further one goes in. Phenomena such as a rusty Imperial colonial settlement abandoned thousands of years ago despite the fact that they've only traveled the stars for a few decades; slow, ethereal voices echoing through hulls while deep in interstellar space; starships seemingly from our own future interacting with crews despite not actually being there... and far stranger.</p>
+          <div class="buttonAlwaysCenter"><a class="btn" href="#">Places</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0" id="people">
+      <div class="container-fluid">
+        <div class="row no-gutter popup-gallery">
+          <div class="col-md-8 col-sm-6 bg-dark2 order-md-1" style="min-height: 300px;">
+            <a class="portfolio-box gradient-overlay-dark imageSpaceman">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-name">
+                    <em>The stars were calling my name</em>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4 col-sm-6 bg-dark2 order-md-2" style="padding-right: 30px; padding-top: 50px; padding-left: 20px; padding-bottom: 50px;">
+            <h2 class="section-heading text-white"><img src="img/icons/ppl.png" width="50" style="margin-bottom: 10px;" />Life of a spaceman</h2>
+            <hr class="light" style="margin-left: 0px;">
+            <p class="text-faded"><span style="font-size: 1.1em;">The people and culture of Unturned Stones</span></p>
+            <p class="text-faded">In the distant future, human beings can be found anywhere; in the cyberpunk sprawls of Yazhou, braving the dusty dunes of Karaglia, orbiting the Tupor black hole, and everywhere in between. Learn more about the men and women, both great and small, who populate and turn the gears of the universe.</p>
+            <div class="buttonCenter"><a class="btn" href="#">Characters</a></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0 parallax_ns4_dossier bg-dark2" id="dossier" style="background-image: url(img/background-main/temple_fade.png); background-size: cover; background-position: 40% bottom; background-repeat: no-repeat;">
+      <div class="container-fluid">
+        <div class="row no-gutter popup-gallery">
+          <div class="col-lg-6 col-sm-6" style="">
+            <div style="padding-right: 30px; padding-top: 30px; padding-left: 30px;">
+              <div style="padding: 20px; padding-bottom: 0px; border: 1px solid white; border-bottom: none;">
+                <h2 class="section-heading text-white" style="padding-top: 10px; margin-bottom: 10px; height: 50px;">The Truth revealed</h2>
+                <hr class="light" style="margin-left: 0px;">
+                <img src="img/background-main/IRIA_logo.png" style="float: left; padding-right: 20px;" />
+                <p class="text-faded"><span style="font-size: 1.1em;">International Researchers of Interstellar Anomalia</span></p>
+                <p class="text-faded"><em>We don't care about your national identity. We don't scour your past, we don't dissect your faith, your beliefs, your culture, and we don't judge your modifications.</em></p>
+                <p class="text-faded"><em>All we care for is your desire for Truth. Not the truth your government designs, not the truth you hear from the holovids, but the Truth.</em></p>
+                <p class="text-faded"><em>Welcome to IRIA.</em></p>
+                <p class="text-faded">Unlike Dossiers, IRIA reports are made from the perspective of an agency within the world of Unturned Stones made up of common and random citizenry who are only interested in cataloguing, finding out, and understanding the truth behind the uncanny, almost supernatural phenomena that occur within the world.</p>
+                <div style="height: 20px;"></div>
+              </div>
+            </div>
+            <div style="padding-right: 30px; padding-left: 30px; padding-bottom: 30px;">
+              <div class="IRIAbox" style="padding: 20px; padding-top: 0px; border: 1px solid white; border-top: none;">
+                <div style="text-align: center;"><a class="btn" href="./iria-reports/">IRIA Reports</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-6 bg-dark" style="">
+            <a class="portfolio-box gradient-overlay-dark" style="background-image: url(img/background-main/dossier.png); background-size: auto; height: 500px; background-position: 50% 80%;">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-name">
+                    Morality at the flick of a switch
+                    <p><em>What do you do when your men refuse to pull their triggers because of some human emotion or antiquated philosophy?</em></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div style="padding-right: 30px; padding-top: 50px; padding-left: 20px; padding-bottom: 50px;">
+              <h2 class="section-heading text-white"><img src="img/icons/gear.png" width="50" style="margin-bottom: 10px;" />How things work</h2>
+              <hr class="light" style="margin-left: 0px;">
+              <p class="text-faded"><span style="font-size: 1.1em;">Dossiers on science and technology</span></p>
+              <p class="text-faded">With each dossier, you'll gain some more overarching insight on a particular aspect or subject relevant to Unturned Stones, whether this is a unique technology that has impacted all of society, a political overview on a delicate situation, an analysis of an alien being, or something else completely. They are completely random.</p>
+              <p class="text-faded">Generally, these come from a meta standpoint, and the inhabitants of Unturned Stones are unaware of these facts, unlike IRIA reports.</p>
+              <div class="buttonCenter"><a class="btn" href="./dossiers/">Dossiers</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="myFooter" class="bg-dark2">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h2 class="logo"><a href="#"><img src="./img/UNTSlogo.svg" width="100"/></a></h2>
+                </div>
+                <div class="col-sm-2">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Sign up</a></li>
+                        <li><a href="#">Downloads</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    <h5>About us</h5>
+                    <ul>
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Help desk</a></li>
+                        <li><a href="#">Forums</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <a class="btn" href="#">Contact us</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright bg-dark">
+            <p>© 2017 Valentin Sigalov </p>
+        </div>
+    </footer>
+
+    <!--<section id="services">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">At Your Service</h2>
+            <hr class="primary">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box">
+              <i class="fa fa-4x fa-diamond text-primary sr-icons"></i>
+              <h3>Sturdy Templates</h3>
+              <p class="text-muted">Our templates are updated regularly so they don't break.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box">
+              <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
+              <h3>Ready to Ship</h3>
+              <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box">
+              <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
+              <h3>Up to Date</h3>
+              <p class="text-muted">We update dependencies to keep things fresh.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box">
+              <i class="fa fa-4x fa-heart text-primary sr-icons"></i>
+              <h3>Made with Love</h3>
+              <p class="text-muted">You have to make your websites with love these days!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0" id="portfolio">
+      <div class="container-fluid">
+        <div class="row no-gutter popup-gallery">
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>-->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/popper/popper.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <!--<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>-->
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.js"></script>
+
+  </body>
+
+</html>
