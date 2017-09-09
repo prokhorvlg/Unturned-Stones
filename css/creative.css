@@ -900,10 +900,10 @@ section.masthead {
     transition: all 0.2s;
   }
 
-  .toggle:hover {
+  /*.toggle:hover {
     background-color: #111;
     cursor: pointer;
-   }
+   }*/
 
   [id^=drop]:checked + ul { display: block; }
 
