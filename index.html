@@ -51,74 +51,57 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#about">:Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#services">:Learn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#portfolio">:Explore</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">:Investigate</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">:Extras</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">:About</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="#about">:Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#services">:Learn</a></li>
+            <li class="nav-item"><a class="nav-link" href="#portfolio">:Explore</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">:Investigate</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">:Extras</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">:About</a></li>
           </ul>
         </div>
       </div>
     </nav>-->
 
-    <nav>
-      <div id="logo">Demo Page</div>
-      <label for="drop" class="toggle">Menu</label>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top webFontsRoboto" id="mainNav">
+      <div class="container">
+      <a id="logo" class="navbar-brand" href="#page-top"><img class="navLogo" src="./img/UNTSlogo.svg"/></a>
+      <label for="drop" class="toggle" style="margin-bottom: 0;">Menu</label>
       <input type="checkbox" id="drop" />
-      <ul class="menu">
-        <li><a href="#">Home</a></li>
+      <ul class="menu navbar-nav ml-auto">
+        <li><hr class="full"></li>
+        <li><a href="#" class="menubg">:Home</a></li>
         <li>
-          <!-- First Tier Drop Down -->
-          <label for="drop-1" class="toggle">Service +</label>
-          <a href="#">Service</a>
+          <label for="drop-1" class="toggle menubg">:Learn<span class="dropPlus" style="float: right; text-align: right;">+</span></label>
+          <a href="#">:Learn</a>
           <input type="checkbox" id="drop-1"/>
           <ul>
-            <li><a href="#">Service 1</a></li>
-            <li><a href="#">Service 2</a></li>
-            <li><a href="#">Service 3</a></li>
+            <li><a href="#" class="innerMenuItem">> History</a></li>
+            <li><a href="#" class="innerMenuItem">> Major Powers</a></li>
           </ul>
         </li>
         <li>
-
-          <!-- First Tier Drop Down -->
-          <label for="drop-2" class="toggle">Portfolio +</label>
-          <a href="#">Portfolio</a>
+          <label for="drop-2" class="toggle menubg">:Explore<span class="dropPlus" style="float: right; text-align: right;">+</span></label>
+          <a href="#">:Explore</a>
           <input type="checkbox" id="drop-2"/>
           <ul>
-            <li><a href="#">Portfolio 1</a></li>
-            <li><a href="#">Portfolio 2</a></li>
-            <li>
-
-              <!-- Second Tier Drop Down -->
-              <label for="drop-3" class="toggle">Works +</label>
-              <a href="#">Works</a>
-              <input type="checkbox" id="drop-3"/>
-              <ul>
-                <li><a href="#">HTML/CSS</a></li>
-                <li><a href="#">jQuery</a></li>
-                <li><a href="#">Python</a></li>
-              </ul>
-            </li>
+            <li><a href="#" class="innerMenuItem">> Starscrapers</a></li>
+            <li><a href="#" class="innerMenuItem">> Characters</a></li>
+            <li><a href="#" class="innerMenuItem">> Places</a></li>
           </ul>
         </li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Submit</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">About</a></li>
+        <li>
+          <label for="drop-3" class="toggle menubg">:Investigate<span class="dropPlus" style="float: right; text-align: right;">+</span></label>
+          <a href="#">:Investigate</a>
+          <input type="checkbox" id="drop-3"/>
+          <ul>
+            <li><a href="#" class="innerMenuItem">> IRIA Reports</a></li>
+            <li><a href="#" class="innerMenuItem">> Dossiers</a></li>
+          </ul>
+        </li>
+        <li><a href="#" class="menubg">:Extras</a></li>
+        <li><a href="#" class="menubg">:About</a></li>
       </ul>
+    </div>
     </nav>
 
     <!--<div class="p_anim" id="p-1"></div>
