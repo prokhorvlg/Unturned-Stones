@@ -31,11 +31,17 @@
     if ($("#mainNav").offset().top > 100) {
       $("#mainNav").addClass("navbar-shrink");
       $(".navLogo").addClass("logo-shrink");
+      $(".innerMenuItem").addClass("navLinkBackground");
+      $(".hiddenLogoText").addClass("visibleLogoText");
     } else {
       $("#mainNav").removeClass("navbar-shrink");
       $(".navLogo").removeClass("logo-shrink");
+      $(".innerMenuItem").removeClass("navLinkBackground");
+      $(".hiddenLogoText").removeClass("visibleLogoText");
     }
   });
+
+
 
   // Scroll reveal calls
   window.sr = ScrollReveal();

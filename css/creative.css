@@ -685,7 +685,7 @@ section.masthead {
     }
     #mainNav .navbar-brand {
       font-weight: 700;
-      text-transform: uppercase !important;
+      text-transform: uppercase;
       color: #F05F40;}
       #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
         color: #f05f40; }
@@ -729,7 +729,7 @@ section.masthead {
           #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover {
             color: white; }
         #mainNav.navbar-shrink {
-          border-color: rgba(34, 34, 34, 0.05);
+          border-color: #555;
           background-color: #151515; }
           #mainNav .logo-shrink {
             width: 50px;
@@ -753,22 +753,59 @@ section.masthead {
 
   /* Modified */
 
+  #mainNav {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
   #mainNav h1 {
     font-size: 60px;
     text-align: center;
     color: #FFF;
   }
 
-  #mainNav h3 {
-    font-size: 30px;
-    line-height: 34px;
-    text-align: center;
-    color: #FFF;
+  #mainNav .hiddenLogoText {
+    color: rgba(255,255,255,0.8);
+    font-weight: 700;
+    user-select: none;
+    cursor: default;
+    opacity: 0;
+    transition: all 0.2s;
+    font-size: 0px;
   }
 
-  #mainNav h3 a { color: #FFF; }
+  .visibleLogoText {
+    opacity: 1 !important;
+    font-size: 14px !important;
+    /* margin-left: -25px; */
+  }
 
-  #mainNav a { color: #FFF; }
+  #logo:hover {  background: none; }
+
+  #mainNav .toggle {
+    color: rgba(255,255,255,1);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  #mainNav a {
+    color: rgba(255,255,255,0.8);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+
+    border-left: 1px solid rgba(255,255,255,0);
+    border-right: 1px solid rgba(255,255,255,0);
+  }
+
+  #mainNav a:hover {
+    color: rgba(255,255,255,1);
+    border-color: rgba(255,255,255,0.8);
+  }
+
+  .navLinkBackground {
+    background-color: #222;
+  }
 
   #mainNav h1 {
     margin-top: 100px;
@@ -829,10 +866,6 @@ section.masthead {
     text-decoration: none !important;
   }
 
-  nav ul li ul li:hover { background: #000000; }
-
-  nav a:hover { background-color: #000000; }
-
   nav ul ul {
     display: none;
     position: absolute;
@@ -863,6 +896,25 @@ section.masthead {
 
   @media all and (max-width : 768px) {
 
+  .visibleLogoText {
+    color: rgba(255,255,255,1) !important;
+    margin-left: 0px;
+  }
+
+  #mainNav a {
+    color: rgba(255,255,255,1);
+  }
+
+  #mainNav a:hover {
+    color: rgba(255,255,255,1);
+    border-color: rgba(255,255,255,0);
+    background: none;
+  }
+
+  #logo:hover {
+    background: none;
+  }
+
   #mainNav .navLogo {
     width: 70px;
     height: 70px;
@@ -879,10 +931,6 @@ section.masthead {
     background-color: #333;
     margin-left: -15px;
     margin-right: -15px;
-  }
-
-  .dropPlus {
-    display: block;
   }
 
   nav { margin: 0; }
@@ -926,10 +974,6 @@ section.masthead {
   nav ul li ul li .toggle,
    nav ul ul a { background-color: #212121; }
 
-  #logo:hover {
-    background: none;
-  }
-
   nav ul ul {
     float: none;
     position: static;
@@ -944,16 +988,15 @@ section.masthead {
     width: 100%;
   }
 
-  nav ul ul ul li { position: static;
+  nav ul ul ul li { position: static; }
 
-  }
   }
 
   @media all and (max-width : 330px) {
 
-  nav ul li {
-    display: block;
-    width: 94%;
-  }
+    nav ul li {
+      display: block;
+      width: 94%;
+    }
 
   }
