@@ -42,67 +42,8 @@
   <body id="page-top">
 
     <!-- Navigation -->
-    <!-- Test -->
-    <!--<nav class="navbar navbar-expand-lg navbar-light fixed-top webFontsRoboto" id="mainNav">
-      <div class="container">
-        <h1><a class="navbar-brand" href="#page-top"><img class="navLogo" src="./img/UNTSlogo.svg"/></a></h1>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="#about">:Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#services">:Learn</a></li>
-            <li class="nav-item"><a class="nav-link" href="#portfolio">:Explore</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">:Investigate</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">:Extras</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">:About</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>-->
 
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top webFontsRoboto" id="mainNav">
-      <div class="container">
-      <a id="logo" class="navbar-brand" href="#page-top"><img class="navLogo" src="./img/UNTSlogo.svg"/></a><span class="hiddenLogoText">UNTURNED STONES</span>
-      <label for="drop" class="toggle" style="margin-bottom: 0;">Menu</label>
-      <input type="checkbox" id="drop" />
-      <ul class="menu navbar-nav ml-auto">
-        <li><hr class="full"></li>
-        <li><a href="#" class="menubg">:Home</a></li>
-        <li>
-          <label for="drop-1" class="toggle menubg">:Learn<span class="dropPlus" style="float: right; text-align: right;">+</span></label>
-          <a href="#">:Learn</a>
-          <input type="checkbox" id="drop-1"/>
-          <ul>
-            <li><a href="#" class="innerMenuItem">> History</a></li>
-            <li><a href="#" class="innerMenuItem">> Major Powers</a></li>
-          </ul>
-        </li>
-        <li>
-          <label for="drop-2" class="toggle menubg">:Explore<span class="dropPlus" style="float: right; text-align: right;">+</span></label>
-          <a href="#">:Explore</a>
-          <input type="checkbox" id="drop-2"/>
-          <ul>
-            <li><a href="#" class="innerMenuItem">> Starscrapers</a></li>
-            <li><a href="#" class="innerMenuItem">> Characters</a></li>
-            <li><a href="#" class="innerMenuItem">> Places</a></li>
-          </ul>
-        </li>
-        <li>
-          <label for="drop-3" class="toggle menubg">:Investigate<span class="dropPlus" style="float: right; text-align: right;">+</span></label>
-          <a href="#">:Investigate</a>
-          <input type="checkbox" id="drop-3"/>
-          <ul>
-            <li><a href="#" class="innerMenuItem">> IRIA Reports</a></li>
-            <li><a href="#" class="innerMenuItem">> Dossiers</a></li>
-          </ul>
-        </li>
-        <li><a href="#" class="menubg">:Extras</a></li>
-        <li><a href="#" class="menubg">:About</a></li>
-      </ul>
-    </div>
-    </nav>
+    <?php include('navbar.php'); ?>
 
     <!--<div class="p_anim" id="p-1"></div>
     <div class="p_anim" id="p-2"></div>
@@ -110,7 +51,7 @@
     <div class="p_anim" id="p-4"></div>
     <div class="p_anim" id="p-5"></div>-->
 
-    <header class="masthead parallax_ns6">
+    <header class="masthead" style="background-attachment: fixed;">
       <div class="header-content">
         <div class="header-content-inner">
           <h1 id="homeHeading">Unturned<img src="./img/UNTSlogo.svg" /><span class="boldSpan" style="font-weight: 700;">Stones</span></h1>
@@ -381,6 +322,15 @@
       </div>
     </section>
 
+    <header class="masthead" style="background-attachment: fixed;">
+      <div class="header-content">
+        <div class="header-content-inner">
+          <h1 id="homeHeading">Unturned<img src="./img/UNTSlogo.svg" /><span class="boldSpan" style="font-weight: 700;">Stones</span></h1>
+          <!--<a class="btn btn-primary btn-xl" href="#about">Find Out More</a>-->
+        </div>
+      </div>
+    </header>
+
     <footer id="myFooter" class="bg-dark2">
         <div class="container">
             <div class="row">
@@ -429,7 +379,6 @@
     <!-- Plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
-    <!--<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>-->
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.js"></script>

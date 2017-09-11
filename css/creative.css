@@ -246,7 +246,7 @@ header.masthead {
   text-align: center;
   color: white;
   background-image: url("../img/background-main/spacebg.png"), url("../img/background-main/mainbg.png");
-  background-position: center;
+  /* background-position: center; */
   animation: 100s scrollBG2 infinite linear;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -650,18 +650,6 @@ section.masthead {
   #myFooter .twitter:hover {
       color: #00aced;
   }
-
-  /*#myFooter .btn {
-      color: white;
-      background-color: #d84b6b;
-      border-radius: 20px;
-      border: none;
-      width: 150px;
-      display: block;
-      margin: 0 auto;
-      margin-top: 10px;
-      line-height: 25px;
-  }*/
 
   @media screen and (max-width: 767px) {
       #myFooter {
