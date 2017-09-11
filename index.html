@@ -37,13 +37,17 @@
     <link href="css/creative.css" rel="stylesheet">
     <script src="js/headScript.js"></script>
 
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+    <!--<link rel="import" href="navbar.html">-->
+
   </head>
 
   <body id="page-top">
 
     <!-- Navigation -->
 
-    <?php include('navbar.php'); ?>
+    <div w3-include-html="navbar.html"></div>
 
     <!--<div class="p_anim" id="p-1"></div>
     <div class="p_anim" id="p-2"></div>
@@ -373,6 +377,10 @@
             <p>© 2017 Valentin Sigalov</p>
         </div>
     </footer>
+
+    <script>
+w3.includeHTML();
+</script>
 
     <script src="vendor/popper/popper.min.js"></script>
 
