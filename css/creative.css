@@ -247,7 +247,7 @@ header.masthead {
   color: white;
   background-image: url("../img/background-main/spacebg.png"), url("../img/background-main/mainbg.png");
   /* background-position: center; */
-  animation: 100s scrollBG2 infinite linear;
+  animation: 20s scrollBG2 infinite linear;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -554,8 +554,11 @@ section.masthead {
 }
 
 @keyframes scrollBG2{
+  0%{
+    background-position:0px 0px, 0px 0px;
+  }
   100%{
-    background-position:0px -8000px, 0px -3000px;
+    background-position:0px -2746px, 0px -970px;
   }
 }
 
