@@ -247,11 +247,8 @@ header.masthead {
   color: white;
   background-image: url("../img/background-main/spacebg.png"), url("../img/background-main/mainbg.png");
   /* background-position: center; */
-  animation: 20s scrollBG2 infinite linear;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  animation: 10s scrollBG2 infinite linear;
+  background-size: 1920px 1717px, 1920px 1080px;
   }
   header.masthead .header-content {
     position: relative;
@@ -557,8 +554,11 @@ section.masthead {
   0%{
     background-position:0px 0px, 0px 0px;
   }
-  100%{
+  /* 100%{
     background-position:0px -2746px, 0px -970px;
+  } */
+  100%{
+    background-position:0px -1717px, 0px -1080px;
   }
 }
 
