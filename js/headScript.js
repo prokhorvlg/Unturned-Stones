@@ -22,7 +22,7 @@ $(document).ready(function() {
     $('.parallax_s7').parallax("50%", 0.7, true);
     $('.parallax_s8').parallax("50%", 0.8, true);
 
-    $('.parallax_ns4_dossier').parallax("40%", -0.4, true);
+    $('.parallax_ns4_dossier').parallax("40%", 0.4, true);
 
     $('.parallax_ns1').parallax("50%", -0.1, true);
     $('.parallax_ns2').parallax("50%", -0.2, true);
@@ -32,6 +32,8 @@ $(document).ready(function() {
     $('.parallax_ns6').parallax("50%", -0.6, true);
     $('.parallax_ns7').parallax("50%", -0.7, true);
     $('.parallax_ns8').parallax("50%", -0.8, true);
+
+
 
     /* for (var i = 1; i < 6; i++){
       animFunction(i);

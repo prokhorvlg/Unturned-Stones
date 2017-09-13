@@ -1,40 +1,94 @@
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+    width = window.innerWidth,
+    height = window.innerHeight;
 
-var randomX = d3.randomNormal(width / 2, 80),
-    randomY = d3.randomNormal(height / 2, 80),
-    data = d3.range(90).map(function() { return [randomX(), randomY()]; });
+    // parse the date / time
+    /*var parseTime = d3.timeParse("%d-%b-%y");*/
 
-var data2 = d3.range(1).map(function() { return [720, 720]; });
+    // set the ranges
+    /*var x = d3.scaleLinear().range([height / 2, width]);
+    var y = d3.scaleLinear().range([height, width / 2]);*/
 
-var dataset = [
-      { x: 100, y: 110 },
-      { x: 83, y: 43 },
-      { x: 92, y: 28 },
-      { x: 49, y: 74 },
-      { x: 51, y: 10 },
-      { x: 25, y: 98 },
-      { x: 77, y: 30 },
-      { x: 20, y: 83 },
-      { x: 11, y: 63 },
-      { x:  4, y: 55 },
-      { x:  0, y:  0 },
-      { x: 85, y: 100 },
-      { x: 60, y: 40 },
-      { x: 70, y: 80 },
-      { x: 10, y: 20 },
-      { x: 40, y: 50 },
-      { x: 25, y: 31 }
-    ];
+    // define the line
+    /*var valueline = d3.line()
+        .x(function(d) { return x(d.x); })
+        .y(function(d) { return y(d.y); });*/
 
-var circle = svg.selectAll("circle")
-  .data(data)
+        // append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)/*
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")")*/;
+
+          // Get the data
+//d3.csv("places.csv", function(data) {
+
+//console.log(data);
+
+  // format the data
+  /*
+  data.forEach(function(d) {
+      d.x = +d.x;
+      d.y = +d.y;
+  });*/
+
+  // Scale the range of the data
+
+  /*x.domain(d3.extent(data, function(d) { return d.x; }));
+  y.domain([0, d3.max(data, function(d) { return d.y; })]);*/
+
+
+
+  // Background
+  svg.append("rect")
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .attr("fill", "#151515");
+
+  // Add the valueline path.
+  /*svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", valueline);*/
+
+      // Add the valueline path.
+/*svg.append("path")
+    .data([data])
+    .attr("class", "line")
+    .attr("d", valueline);*/
+
+// Add the scatterplot
+/*svg.selectAll("dot")
+    .data(data)
   .enter().append("circle")
-    .attr("r", 2.5)
-    .attr("transform", transform(d3.zoomIdentity));
+    .attr("r", 5)
+    .attr("cx", function(d) { return x(d.x); })
+    .attr("cy", function(d) { return y(d.y); });*/
 
-console.log(data2);
+// Add the X Axis
+/*
+svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));*/
+
+// Add the Y Axis
+/*
+svg.append("g")
+    .call(d3.axisLeft(y));*/
+
+/*var svg = d3.select("body").append("svg").attr({
+    width: w,
+    height: h
+  });*/
+
+/*var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");*/
 
 svg.append("rect")
     .attr("fill", "none")
@@ -43,43 +97,82 @@ svg.append("rect")
     .attr("height", height)
     .call(d3.zoom()
         .scaleExtent([1, 8])
-        .on("zoom", zoom)); 
+        .on("zoom", zoom));
 
-var circle2 = svg.selectAll("circle2")
-  .data(d3.range(1).map(function() { return [720, 720]; }))
+var i, z = 0;
+
+var x = [0, 367, 566];
+var y = [0, 976, 498];
+
+var circleIDs = ["1", "2", "3"];
+
+/*var circle = svg.selectAll("circle")
+  //.data(d3.range(1).map(function() { return [width / 2, height / 2]; }))
+  //.data(data)
   .enter().append("circle")
-    .attr("r", 9.5)
-    .style("fill", "steelblue")
+    .attr("cx", function(d, i) {
+      for(i = 0; i<3; i++) {
+        return x[i];
+      }
+    })
+    .attr("cy", function(d, z) {
+      for(z = 0; z<3; z++) {
+        return y[z];
+      }
+    })
+    .attr("r", "4")
+    .style("stroke", "#fff")
+    .style("stroke-width", "2")
+    .style("fill", "#151515")
     .on("mouseover", handleMouseOver)
     .on("mouseout", handleMouseOut)
     .attr("id", function(d){
       return d.id; //<-- Sets the ID of this county to the path
     })
-    .attr("transform", transform(d3.zoomIdentity));     
+    .attr("transform", transform(d3.zoomIdentity));*/
 
+
+
+var circle = svg.selectAll("circle")
+    .data([[720, 720], [632, 720]])
+    .enter().append("circle")
+    /*.attr("cx", 30)
+    .attr("cy", 30)*/
+    .attr("r", "4")
+    .style("stroke", "#fff")
+    .style("stroke-width", "2")
+    .style("fill", "#151515")
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut)
+    .attr("id", function(d){
+      return d.id; //<-- Sets the ID of this county to the path
+    })
+    .attr("transform", transform(d3.zoomIdentity));
+
+// Allows zooming over rectangle
 function zoom() {
   circle.attr("transform", transform(d3.event.transform));
-  circle2.attr("transform", transform(d3.event.transform));
 }
 
+// Allows panning across rectangle
 function transform(t) {
   return function(d) {
     return "translate(" + t.apply(d) + ")";
   };
 }
 
-function handleMouseOver() {  // Add interactivity
-  // Use D3 to select element, change color and size
-  d3.select(this).attr({
-    fill: "orange",
-    r: radius * 2
-  });
+// Handles MouseOver event for stars
+function handleMouseOver(d, i) {
+  d3.select(this).transition()
+    .duration(100)
+    .attr("r", "8");
 }
 
-function handleMouseOut() {
-  // Use D3 to select element, change color back to normal
-  d3.select(this).attr({
-    fill: "black",
-    r: radius
-  });
+// Handles MouseOut event for stars
+function handleMouseOut(d, i) {
+  d3.select(this).transition()
+    .duration(100)
+    .attr("r", "4");
 }
+
+//});
