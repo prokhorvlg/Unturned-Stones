@@ -96,7 +96,7 @@ svg.append("rect")
 
 var i, z = 0;
 
-var xy = [[0, 0], [367, 976], [566, 498]];
+var xy = [[0, 0], [233, 175], [146, 43]];
 var text = ["test1", "test2", "test3"];
 var starID = (function(){var a = 0; return function(){return a++}})();
 var cardID = (function(){var b = 0; return function(){return "card_" + b++}})();
