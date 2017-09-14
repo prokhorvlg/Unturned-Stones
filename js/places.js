@@ -37,17 +37,11 @@ var svg = d3.select("body").append("svg")
       d.y = +d.y;
   });*/
 
-  // Scale the range of the data
-
-  /*x.domain(d3.extent(data, function(d) { return d.x; }));
-  y.domain([0, d3.max(data, function(d) { return d.y; })]);*/
-
-
-
   // Background
   svg.append("rect")
       .attr("width", "100%")
       .attr("height", "100%")
+      .attr("class", "otherRects")
       .attr("fill", "#151515");
 
   // Add the valueline path.
@@ -95,16 +89,17 @@ svg.append("rect")
     .attr("pointer-events", "all")
     .attr("width", width)
     .attr("height", height)
+    .attr("class", "otherRects")
     .call(d3.zoom()
-        .scaleExtent([1, 8])
+        .scaleExtent([1, 4])
         .on("zoom", zoom));
 
 var i, z = 0;
 
-var x = [0, 367, 566];
-var y = [0, 976, 498];
-
-var circleIDs = ["1", "2", "3"];
+var xy = [[0, 0], [367, 976], [566, 498]];
+var text = ["test1", "test2", "test3"];
+var starID = (function(){var a = 0; return function(){return a++}})();
+var cardID = (function(){var b = 0; return function(){return "card_" + b++}})();
 
 /*var circle = svg.selectAll("circle")
   //.data(d3.range(1).map(function() { return [width / 2, height / 2]; }))
@@ -131,27 +126,33 @@ var circleIDs = ["1", "2", "3"];
     })
     .attr("transform", transform(d3.zoomIdentity));*/
 
-
+var card = svg.selectAll("rect:not(.otherRects)")
+  .data(xy)
+  .enter().append("rect")
+    .attr("width", 50)
+    .attr("height", 50)
+    .style("stroke", "#fff")
+    .style("stroke-width", "2")
+    .style("fill", "none")
+    .attr("id", cardID)
+    .attr("transform", transform(d3.zoomIdentity));
 
 var circle = svg.selectAll("circle")
-    .data([[720, 720], [632, 720]])
-    .enter().append("circle")
-    /*.attr("cx", 30)
-    .attr("cy", 30)*/
-    .attr("r", "4")
+  .data(xy)
+  .enter().append("circle")
+    .attr("r", "8")
     .style("stroke", "#fff")
     .style("stroke-width", "2")
     .style("fill", "#151515")
     .on("mouseover", handleMouseOver)
     .on("mouseout", handleMouseOut)
-    .attr("id", function(d){
-      return d.id; //<-- Sets the ID of this county to the path
-    })
+    .attr("id", starID)
     .attr("transform", transform(d3.zoomIdentity));
 
 // Allows zooming over rectangle
 function zoom() {
   circle.attr("transform", transform(d3.event.transform));
+  card.attr("transform", transform(d3.event.transform));
 }
 
 // Allows panning across rectangle
@@ -165,14 +166,32 @@ function transform(t) {
 function handleMouseOver(d, i) {
   d3.select(this).transition()
     .duration(100)
-    .attr("r", "8");
+    .attr("r", "20");
+
+  d3.select("#card_" + this.id).transition()
+    .duration(100)
+    .attr("width", "90");
+
+  /*svg.append("text")
+    .attr("id", "t_" + d.id),
+    .attr("": function() { return xScale(d.x) - 30; }),
+    .attr(y: function() { return yScale(d.y) - 15; })
+    })
+    .text(function() {
+      return [d.x, d.y];  // Value of the text
+    });*/
 }
 
 // Handles MouseOut event for stars
 function handleMouseOut(d, i) {
   d3.select(this).transition()
     .duration(100)
-    .attr("r", "4");
+    .attr("r", "8");
+
+  d3.select("#card_" + this.id).transition()
+    .duration(100)
+    .attr("width", "40");
 }
 
 //});
+
