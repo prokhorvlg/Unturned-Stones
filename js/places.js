@@ -26,17 +26,26 @@ var cardID = (function(){var c = 0; return function(){return "card_" + c++}})();
 // Radius of invisible circle that intercepts hover event over stars
 var hitBoxRadius = 15;
 
+var widthOfCard = 200;
+var heightOfCard = 300;
+
+var xyCard = [];
+for (var a = 0; a < xy.length; a++) {
+  xyCard[a] = [ xy[a][0] - widthOfCard/2, xy[a][1] - 50 ];
+}
+
 // Rectangles generated around individual stars
 var cardRectangle = svg.selectAll("rect:not(.otherRects):not(.fullScreenSize)")
-  .data(xy)
+  .data(xyCard)
   .enter().append("rect")
-    .attr("width", 50)
-    .attr("height", 50)
+    .attr("width", 0)
+    .attr("height", 0)
     .style("stroke", "#fff")
     .style("stroke-width", "2")
     .style("fill", "none")
     .attr("class", "cardRectangle")
     .attr("id", cardID)
+    //.attr("transform", "translate(" + (-widthOfCard / 2) + ", " + (-heightOfCard / 2) + ")");
     .attr("transform", transform(d3.zoomIdentity));
 
 // Circles generated for star visual
@@ -80,10 +89,21 @@ function zoom() {
   cardRectangle.attr("transform", transform(d3.event.transform));
   starCircle.attr("transform", transform(d3.event.transform));
   hoverCircle.attr("transform", transform(d3.event.transform));
+
+  // non-semantic zoom code
+  // cardRectangle.attr("transform", 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
 }
 
 // Allows panning across rectangle
 function transform(t) {
+  return function(d) {
+    return "translate(" + t.apply(d) + ")";
+  };
+}
+
+function transformCard(t) {
+  console.log(t);
+  t.x = t.x - widthOfCard / 2;
   return function(d) {
     return "translate(" + t.apply(d) + ")";
   };
@@ -101,7 +121,8 @@ function handleMouseOver(d, i) {
 
   d3.select("#card_" + this.id).transition()
     .duration(100)
-    .attr("width", "90");
+    .attr("width", widthOfCard)
+    .attr("height", heightOfCard);
 
   /*svg.append("text")
     .attr("id", "t_" + d.id),
@@ -121,7 +142,8 @@ function handleMouseOut(d, i) {
 
   d3.select("#card_" + this.id).transition()
     .duration(100)
-    .attr("width", "50");
+    .attr("width", 0)
+    .attr("height", 0);
 }
 
 function redraw(){
