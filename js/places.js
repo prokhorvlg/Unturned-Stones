@@ -21,11 +21,20 @@ var starDesc = ["The pristine home of the Federation",
    "The cyberpunk megalopolis of the Conglomerate", 
    "This gun is not authorized to fire at the user//"];
 
-var cardColor = (function(){
-  var a = -1;
-  var colors = ["#4cace8",
+var colors = ["#4cace8",
    "#fff", 
    "#984deb"];
+
+var cardColor = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return colors[a];
+  }
+})();
+
+var ringColor = (function(){
+  var a = -1;
   return function(){
     a++;
     return colors[a];
@@ -39,6 +48,8 @@ var starDotID = (function(){var a = 0; return function(){return "starDot_" + a++
 var cardID = (function(){var a = 0; return function(){return "card_" + a++}})();
 var textID = (function(){var a = 0; return function(){return "text_" + a++}})();
 var markerID = (function(){var a = 0; return function(){return "marker_" + a++}})();
+
+var ringID = (function(){var a = 0; return function(){return "ring_" + a++}})();
 
 var cardTLID = (function(){var a = 0; return function(){return "cardTL_" + a++}})();
 var cardTRID = (function(){var a = 0; return function(){return "cardTR_" + a++}})();
@@ -62,6 +73,9 @@ var circleRBefore = 100;
 
 var circleStarR = 10;
 var circleStarRBefore = 5;
+
+var circleRingR = 35;
+var circleRingRBefore = 8;
 
 // Invisible Rectangle that intercepts Zoom/pan events across entire screen
 svg.append("rect")
@@ -168,14 +182,24 @@ var starCircle = svg.selectAll(".groupNode").append("circle")
   .attr("class", "starCircles")
   .attr("id", starID);
 
-var textCard = svg.selectAll(".groupNode").append("div")
+var starRing = svg.selectAll(".groupNode").append("circle")
+  .attr('pointer-events', 'none')
+  .attr("r", circleRingRBefore)
+  .style("opacity", 1)
+  .style("stroke", ringColor)
+  .style("stroke-width", "2")
+  .style("fill", "none")
+  .attr("class", "starCirclesRing")
+  .attr("id", ringID);
+
+/*var textCard = svg.selectAll(".groupNode").append("div")
   .attr('pointer-events', 'none')
   .style("opacity", 1)
   .style("background", "white")
   .style("width", "100px")
   .style("height", "100px")
   .html("FIRST LINE <br> SECOND LINE")
-  .attr("id", textID);
+  .attr("id", textID);*/
 
 // Invisible circles generated to intercept hover event
 var hoverCircle = svg.selectAll(".groupNode").append("circle")
@@ -218,9 +242,6 @@ function transform(t) {
 
 // Handles MouseOver event for stars
 function handleMouseOverStar(d, i) {
-  /*d3.select(this).transition()
-    .duration(100)
-    .attr("r", "20");*/
 
   d3.select("#star_" + this.id).transition()
     .duration(200)
@@ -230,6 +251,10 @@ function handleMouseOverStar(d, i) {
   d3.select("#starDot_" + this.id).transition()
     .duration(200)
     .attr("r", circleStarR);
+
+  d3.select("#ring_" + this.id).transition()
+    .duration(200)
+    .attr("r", circleRingR);
 
   d3.select("#card_" + this.id).transition()
     .duration(300)
@@ -283,6 +308,10 @@ function handleMouseOutStar(d, i) {
   d3.select("#starDot_" + this.id).transition()
     .duration(200)
     .attr("r", circleStarRBefore);
+
+    d3.select("#ring_" + this.id).transition()
+    .duration(200)
+    .attr("r", circleRingRBefore);
 
   d3.select("#card_" + this.id).transition()
     .duration(300)
