@@ -49,6 +49,14 @@ Papa.parse("places.csv", {
   }
 });
 
+function centerCoordinates(xy){
+  for (var i = 0; i < xy.length; i++){
+    xy[i][0] = xy[i][0] + width/2;
+    xy[i][1] = xy[i][1] + height/2;
+  }
+  return xy;
+}
+
 var cardColor = (function(){
   var a = -1;
   return function(){
@@ -185,7 +193,7 @@ svg.append("rect")
     .on("zoom", zoom));
 
 var groupNode = svg.selectAll("g")
-  .data(xy, function(d) { return d.name; })
+  .data(centerCoordinates(xy), function(d) { return d.name; })
   .enter().append("g")
     .attr("class", "groupNode")
     .attr("pointer-events", "none")
@@ -355,11 +363,15 @@ redraw();
 
 window.addEventListener("resize", redraw);
 
+//{k: 1, x: 328, y: 165
+//groupNode.attr("transform", "translate(" + width/2 + ", " + height/2 + ")");
+
 }
 
 // Allows zooming over rectangle
 function zoom() {
   var groupNode = svg.selectAll("g");
+  //console.log(d3.event.transform)
   groupNode.attr("transform", transform(d3.event.transform));
 
   //cardRectangle.data(recalculateCard(d3.event.transform.k));
