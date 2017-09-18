@@ -1,4 +1,9 @@
-﻿x,y
-777,754
-367,976
-566,498
+﻿x,y,starNames,quoteDescs,descDescs,colors,markers
+0,0,America,They were once a proud people.<br>They were brave and free.,"As the system host to the Federation’s homeworld, America is considered to be the center of the known world by many explorers, despite its status as a subjugate region to the Confederacy.",#85eb4d,startower
+116,72,Ziraguan,"Half of the system is city,<br>but there's not a human in sight.","Every planet of this system is packed with industrial equipment, driven by interstellar AI under the command of the Emperor-King and corporations on the Conglomerate Council.",#85eb4d,startower
+-73,41,Liberty,,,#4deb89,accessible
+400,82,Qian Xuesen,"""If you see an Imperial, duck.""<br>- Public Service Announcement","For centuries, Qian Xuesen was considered the jewel of the Conglomerate, boasting beautiful cities and extensive industry. Now, the system is under threat on two fronts.",#4deb89,startower
+250,320,Xiofang,,"The system is described by many as a ""perpetual conflict zone"" for good reason. Xiofang is a lawless wasteland, cursed by its strategic location in the Outer Systems.",#4db5eb,accessible
+370,22,Fenrir,"Like the beast, Fenrir is unbound.<br>Unlike the beast, Fenrir yet wanders.","The Empire has recently begun to expand their industrial capacities by capturing old Conglomerate Corporate facilities in this small, tumultuous solar system.",#4db5eb,restricted
+335,372,Riley's Charter,If you get close enough to it…<br>You just might hear their voices.,"Named after the unfortunate explorer Evan James Riley, who's starship can still be found orbiting the star, this system is well-documented and uneventful... according to the locals.",#4db5eb,difficult
+215,425,Bink,,"As the economic hub of the League, Bink can hardly be recognized as a colonial system settled by just a couple of very lucky privateers escaping the Conglomerate centuries ago.",#4db5eb,startower
