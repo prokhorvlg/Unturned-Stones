@@ -16,6 +16,7 @@ var svg = d3.select("body").append("center").append("svg")
 svg.append("rect")
     .attr("width", "100%")
     .attr("height", "100%")
+    .attr("id", "bg")
     .attr("class", "otherRects")
     .attr("class", "fullScreenSize")
     .attr("fill", "#151515");
@@ -27,6 +28,14 @@ var descDescs = [];
 var colors = [];
 var markers = [];
 
+var paths1 = [];
+var paths1Uncentered = [];
+var paths2 = [];
+
+var pathStrokes = [];
+
+var bgCoord = [[0 - (width*20.5/2),0 - (height*20.5/2)]];
+
 Papa.parse("places.csv", {
   download: true,
   step: function(row) {
@@ -34,16 +43,25 @@ Papa.parse("places.csv", {
     //alert(row.data[0][0])
     //alert(row.data[0][0])
     if (row.data[0][0] != "x" && row.data[0][0] != ""){
-      xy.push([parseInt(row.data[0][0]), parseInt(row.data[0][1])]);
-      starNames.push(row.data[0][2]);
-      quoteDescs.push(row.data[0][3]);
-      descDescs.push(row.data[0][4]);
-      colors.push(row.data[0][5]);
-      markers.push(row.data[0][6]);
+      if (row.data[0][0] == "path"){
+        paths1.push([row.data[0][1], row.data[0][2]]);
+        paths2.push([row.data[0][3], row.data[0][4]]);
+        paths1Uncentered.push([row.data[0][1], row.data[0][2]]);
+        pathStrokes.push(row.data[0][5]);
+      }
+      else {
+        xy.push([parseInt(row.data[0][0]), parseInt(row.data[0][1])]);
+        starNames.push(row.data[0][2]);
+        quoteDescs.push(row.data[0][3]);
+        descDescs.push(row.data[0][4]);
+        colors.push(row.data[0][5]);
+        markers.push(row.data[0][6]);
+      }
     }
 
   },
   complete: function() {
+    //console.log(pathsX);
     makeMap();
     //console.log("All done!");
   }
@@ -55,6 +73,15 @@ function centerCoordinates(xy){
     xy[i][1] = xy[i][1] + height/2;
   }
   return xy;
+}
+
+function centerCoordinatesLine(paths1){
+  var newPaths1 = paths1;
+  for (var i = 0; i < paths1.length; i++){
+    newPaths1[i][0] = parseInt(paths1[i][0]) + (width/2);
+    newPaths1[i][1] = parseInt(paths1[i][1]) + height/2;
+  }
+  return newPaths1;
 }
 
 var cardColor = (function(){
@@ -113,9 +140,35 @@ var marker = (function(){
   }
 })();
 
+var path2X = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return parseInt(paths2[a][0]) - parseInt(paths1Uncentered[a][0]);
+  }
+})();
+
+var path2Y = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return parseInt(paths2[a][1]) - parseInt(paths1Uncentered[a][1]);
+  }
+})();
+
+var pathStroke = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return pathStrokes[a];
+  }
+})();
+
 // ID Generators
 var mainID = (function(){var a = 0; return function(){return a++}})();
 var gID = (function(){var a = 0; return function(){return "g_" + a++}})();
+var linegID = (function(){var a = 0; return function(){return "lineg_" + a++}})();
+var lineID = (function(){var a = 0; return function(){return "line_" + a++}})();
 var starID = (function(){var a = 0; return function(){return "star_" + a++}})();
 var starDotID = (function(){var a = 0; return function(){return "starDot_" + a++}})();
 var cardDarkID = (function(){var a = 0; return function(){return "cardDark_" + a++}})();
@@ -180,6 +233,46 @@ var verticalOffsetDescModuleAfter = 45;
 var fontSizeDesc = "12px";
 
 function makeMap(){
+
+svg.append("defs")
+    .append("pattern")
+    .attr("id", "bgPattern")
+    .attr('patternUnits', 'userSpaceOnUse')
+    .attr("width", 500)
+    .attr("height", 500)
+    .append("image")
+    .attr("xlink:href", "img/mapmarkers/gridTile3.png")
+    .attr("width", 500)
+    .attr("height", 500);
+
+// Background
+var bgNode = svg.selectAll("rect:not(#bg)")
+  .data(bgCoord)
+  .enter().append("rect")
+      .attr("id", "bgPatternRect")
+      .attr("width", width*20)
+      .attr("height", height*20)
+      .attr("class", "otherRects")
+      .attr("fill", "url(#bgPattern)")
+      .attr("transform", transform(d3.zoomIdentity));
+
+var d3Zoom = d3.zoom()
+  .scaleExtent([0.7, 4])
+  .on("zoom", zoom);
+
+/*
+
+var zoomNode = svg.append("g")
+  .attr("id", "zoomNode")
+  .attr("pointer-events", "all")
+  .attr("width", width)
+  .attr("height", height)
+  .attr("class", "otherRects")
+  .attr("class", "fullScreenSize")
+  .call(d3Zoom);
+
+*/
+
 // Invisible Rectangle that intercepts Zoom/pan events across entire screen
 svg.append("rect")
   .attr("fill", "none")
@@ -188,17 +281,57 @@ svg.append("rect")
   .attr("height", height)
   .attr("class", "otherRects")
   .attr("class", "fullScreenSize")
+  .call(d3Zoom);
+
+/*
+
   .call(d3.zoom()
-    .scaleExtent([1, 4])
+    .scaleExtent([1, 4]) 
+    .duration(500)
     .on("zoom", zoom));
 
-var groupNode = svg.selectAll("g")
+*/
+
+// .select("#zoomNode")
+
+var groupNode = svg.selectAll("g:not(#zoomNode)")
   .data(centerCoordinates(xy), function(d) { return d.name; })
   .enter().append("g")
     .attr("class", "groupNode")
     .attr("pointer-events", "none")
     .attr("id", gID)
     .attr("transform", transform(d3.zoomIdentity));
+
+var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode)")
+  .data(centerCoordinatesLine(paths1), function(d) { return d.name; })
+  .enter().append("g")
+    .attr("class", "lineNode")
+    .attr("pointer-events", "none")
+    .attr("id", linegID)
+    .attr("transform", transform(d3.zoomIdentity));
+
+var line = svg.selectAll(".lineNode").append("line")
+  .style("stroke", "rgba(255,255,255,0.3)")
+  .style("stroke-width", "2px")
+  .style("stroke-linecap", "round")
+  .style("stroke-dasharray", pathStroke)
+  .attr("x1", 0)
+  .attr("y1", 0)
+  .attr("id", lineID)
+  .attr("class", "lineEl")
+  .attr("x2", (path2X))
+  .attr("y2", (path2Y));
+
+/*
+var lineNode = svg.selectAll("line")
+  .data(pathxy, function(d) { return d.name; })
+  .enter().append("line")
+    .attr("class", "lineNode")
+    .attr("pointer-events", "none")
+    .style("stroke", "#fff")
+    .style("stroke-width", "2")
+    .attr("id", lineID)
+    .attr("transform", transform(d3.zoomIdentity));*/
 
 var cardDarkRectangle = svg.selectAll(".groupNode").append("rect")
   .attr('pointer-events', 'none')
@@ -210,6 +343,7 @@ var cardDarkRectangle = svg.selectAll(".groupNode").append("rect")
   .attr("id", cardDarkID)
   .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")");
 
+// Generates background color rectangle for locations
 var cardRectangle = svg.selectAll(".groupNode").append("rect")
   .attr('pointer-events', 'none')
   .style("opacity", "0")
@@ -220,6 +354,7 @@ var cardRectangle = svg.selectAll(".groupNode").append("rect")
   .attr("id", cardID)
   .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")");
 
+// Generates corner pieces for rectangles on hover
 var cardRectangleTopLeft = svg.selectAll(".groupNode").append("rect")
   .attr('pointer-events', 'none')
   .style("opacity", "0")
@@ -357,7 +492,8 @@ var hoverCircle = svg.selectAll(".groupNode").append("circle")
   .attr("pointer-events", "all")
   .on("mouseover", handleMouseOverStar)
   .on("mouseout", handleMouseOutStar)
-  .attr("id", mainID);
+  .attr("id", mainID)
+  .call(d3Zoom);
 
 redraw();
 
@@ -371,19 +507,39 @@ window.addEventListener("resize", redraw);
 // Allows zooming over rectangle
 function zoom() {
   var groupNode = svg.selectAll("g");
-  //console.log(d3.event.transform)
   groupNode.attr("transform", transform(d3.event.transform));
 
-  //cardRectangle.data(recalculateCard(d3.event.transform.k));
+  var bgPatternRect = svg.selectAll("#bgPatternRect");
+  bgPatternRect.attr("transform", transformNSGrid(d3.event.transform));
 
-  // non-semantic zoom code
-  // cardRectangle.attr("transform", 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
+  var line = svg.selectAll(".lineNode");
+  line.attr("transform", transformNS(d3.event.transform));
+
+  var lineEl = svg.selectAll(".lineEl");
+  lineEl.style("stroke-width", (2/d3.event.transform.k) + "px");
 }
 
 // Allows panning across rectangle
 function transform(t) {
   return function(d) {
+    //console.log(d)
     return "translate(" + t.apply(d) + ")";
+
+    // Equivalent code, splitting X and Y amount
+    //return "translate(" + t.applyX(d[0]) + ", " + t.applyY(d[1]) + ")";
+  };
+}
+
+function transformNS(t) {
+  return function(d) {
+    return "translate(" + t.applyX(d[0]) + ", " + t.applyY(d[1]) + ") scale(" + d3.event.transform.k + ")";
+  };
+}
+
+function transformNSGrid(t) {
+  return function(d) {
+    //console.log(d[0])
+    return "translate(" + (1.2 * t.applyX(d[0])) + ", " + (1.2 * t.applyY(d[1])) + ") scale(" + d3.event.transform.k + ")";
   };
 }
 

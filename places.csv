@@ -7,3 +7,10 @@
 370,22,Fenrir,"Like the beast, Fenrir is unbound.<br>Unlike the beast, Fenrir yet wanders.","The Empire has recently begun to expand their industrial capacities by capturing old Conglomerate Corporate facilities in this small, tumultuous solar system.",#4db5eb,restricted
 335,372,Riley's Charter,If you get close enough to it…<br>You just might hear their voices.,"Named after the unfortunate explorer Evan James Riley, who's starship can still be found orbiting the star, this system is well-documented and uneventful... according to the locals.",#4db5eb,difficult
 215,425,Bink,,"As the economic hub of the League, Bink can hardly be recognized as a colonial system settled by just a couple of very lucky privateers escaping the Conglomerate centuries ago.",#4db5eb,startower
+path,0,0,116,72,solid,
+path,0,0,-73,41,10 5 5 10,
+path,116,72,400,82,solid,
+path,400,82,250,320,solid,
+path,250,320,215,425,solid,
+path,400,82,370,22,solid,
+path,250,320,335,372,10 5 5 10,
