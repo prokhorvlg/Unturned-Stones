@@ -1,47 +1,68 @@
+// Defines procedure for elements that intercept zoom/pan events
+var d3Zoom = d3.zoom()
+  .scaleExtent([1, 4])
+  .on("zoom", zoom);
+
+// Function that moves the hovered node/card to the top
 d3.selection.prototype.moveToFront = function() {
   return this.each(function(){
     this.parentNode.appendChild(this);
   });
 };
 
+// Defines dimensions of SVG
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
     width = window.innerWidth,
     height = window.innerHeight;
 
+// Appends SVG Canvas to document body
 var svg = d3.select("body").append("center").append("svg")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+    .call(d3Zoom);
 
-// Background
+// Appends grey rectangle across entire canvas
 svg.append("rect")
     .attr("width", "100%")
     .attr("height", "100%")
     .attr("id", "bg")
     .attr("class", "otherRects")
     .attr("class", "fullScreenSize")
-    .attr("fill", "#151515");
+    .attr("fill", "#111");
 
+// Initialize arrays to store data regarding items to be generated on SVG
+
+// XY Coordinates of all nodes
 var xy = [];
+// Name of all nodes
 var starNames = [];
+// Quote line of all nodes
 var quoteDescs = [];
+// Description text of all nodes
 var descDescs = [];
+// Color of all nodes
 var colors = [];
+// Icon filename for all nodes
 var markers = [];
 
+// First coordinate set for lines
 var paths1 = [];
+// First coordinate set for lines, not adjusted for centering on screen
 var paths1Uncentered = [];
+// Second coordinate set for lines
 var paths2 = [];
 
+// Dasharray of lines (dashed, solid, etc...)
 var pathStrokes = [];
 
+// Coordinates for the top-left corner of the "overlay" foreground (the grid that looks like it's above everything)
 var bgCoord = [[0 - (width*20.5/2),0 - (height*20.5/2)]];
 
+// Parses CSV file with all node data, appends it to appropriate array
+// Relies on Papa library
 Papa.parse("places.csv", {
   download: true,
   step: function(row) {
-    //console.log("Row:", row.data);
-    //alert(row.data[0][0])
-    //alert(row.data[0][0])
     if (row.data[0][0] != "x" && row.data[0][0] != ""){
       if (row.data[0][0] == "path"){
         paths1.push([row.data[0][1], row.data[0][2]]);
@@ -61,12 +82,12 @@ Papa.parse("places.csv", {
 
   },
   complete: function() {
-    //console.log(pathsX);
+    // Once parse is complete, run the function that draws the elements
     makeMap();
-    //console.log("All done!");
   }
 });
 
+// Accepts array of coordinates of nodes, adjusts each value 50% of the height and width of the canvas to center them on the screen
 function centerCoordinates(xy){
   for (var i = 0; i < xy.length; i++){
     xy[i][0] = xy[i][0] + width/2;
@@ -75,6 +96,7 @@ function centerCoordinates(xy){
   return xy;
 }
 
+// Accepts array of coordinates of nodes (the first coordinate for the lines), adjusts each value 50% of the height and width of the canvas to center them on the screen
 function centerCoordinatesLine(paths1){
   var newPaths1 = paths1;
   for (var i = 0; i < paths1.length; i++){
@@ -84,6 +106,7 @@ function centerCoordinatesLine(paths1){
   return newPaths1;
 }
 
+// When called, these return the next value in the appropriate array
 var cardColor = (function(){
   var a = -1;
   return function(){
@@ -164,7 +187,8 @@ var pathStroke = (function(){
   }
 })();
 
-// ID Generators
+// Generate custom IDs for each element when called.
+// Any given item in a group will have the same number as the other items associated with it
 var mainID = (function(){var a = 0; return function(){return a++}})();
 var gID = (function(){var a = 0; return function(){return "g_" + a++}})();
 var linegID = (function(){var a = 0; return function(){return "lineg_" + a++}})();
@@ -176,9 +200,6 @@ var cardID = (function(){var a = 0; return function(){return "card_" + a++}})();
 var textID = (function(){var a = 0; return function(){return "text_" + a++}})();
 var textQuoteID = (function(){var a = 0; return function(){return "textQuote_" + a++}})();
 var textDescID = (function(){var a = 0; return function(){return "textDesc_" + a++}})();
-
-//var markerID = (function(){var a = 0; return function(){return "marker_" + a++}})();
-
 var ringID = (function(){var a = 0; return function(){return "ring_" + a++}})();
 var barID = (function(){var a = 0; return function(){return "bar_" + a++}})();
 
@@ -187,53 +208,74 @@ var cardTRID = (function(){var a = 0; return function(){return "cardTR_" + a++}}
 var cardBLID = (function(){var a = 0; return function(){return "cardBL_" + a++}})();
 var cardBRID = (function(){var a = 0; return function(){return "cardBR_" + a++}})();
 
-// Generates an increment to pull the next item from the array.
 var listItem = (function(){var a = 0; return function(){return a++}})();
 
-// Radius of invisible circle that intercepts hover event over stars
+// Radius of invisible circle that intercepts hover event over nodes
 var hitBoxRadius = 30;
 
+// Width and height of color card
+//After hover event
 var widthOfCard = 220;
 var heightOfCard = 310;
-
+// Before hover event (when it is invisible)
 var widthOfCardBefore = 50;
 var heightOfCardBefore = 100;
 
+// Radius of white circle that appears around the node after hover event
+// After hover event 
 var circleR = 14;
+// Before hover event (while invisible)
 var circleRBefore = 100;
 
-var circleStarR = 10;
-var circleStarRBefore = 5;
-
+// Width/height of center icon on a node
+// After/Before hover event
 var circleStarWidth = 23;
 var circleStarWidthBefore = 10;
 var circleStarHeight = circleStarWidth;
 var circleStarHeightBefore = circleStarWidthBefore;
 
+// Radius of colored circle that is always around a node
+// After hover event
 var circleRingR = 35;
+// Before hover event
 var circleRingRBefore = 8;
 
+// Name of node text box
+// Width
 var widthTextModule = 350;
+// Vertical offset before hover event
 var verticalOffsetTextModule = 10;
+// Vertical offset after hover event
 var verticalOffsetTextModuleAfter = -130;
-
+// Font size before hover event
 var fontSizeBefore = "14px";
+// Font size after hover event
 var fontSizeAfter = "24px";
 
+// Quote of node text box
+// Width
 var widthQuoteModule = widthOfCard;
+// Vertical offset before hover event
 var verticalOffsetQuoteModule = 10;
+// Vertical offset after hover event
 var verticalOffsetQuoteModuleAfter = -90;
-
+// Font size
 var fontSizeQuote = "14px";
 
+// Description of node text box
+// Width
 var widthDescModule = widthOfCard -20;
+// Vertical offset before hover event
 var verticalOffsetDescModule = 10;
+// Vertical offset after hover event
 var verticalOffsetDescModuleAfter = 45;
-
+// Font size
 var fontSizeDesc = "12px";
 
+// Function that draws the elements in the arrays after the parse is complete
 function makeMap(){
 
+// Appends a defs element, and the pattern to be used on the "overlay" foreground
 svg.append("defs")
     .append("pattern")
     .attr("id", "bgPattern")
@@ -245,7 +287,7 @@ svg.append("defs")
     .attr("width", 500)
     .attr("height", 500);
 
-// Background
+// Appends the "overlay" foreground element with the pattern defined previously
 var bgNode = svg.selectAll("rect:not(#bg)")
   .data(bgCoord)
   .enter().append("rect")
@@ -255,10 +297,6 @@ var bgNode = svg.selectAll("rect:not(#bg)")
       .attr("class", "otherRects")
       .attr("fill", "url(#bgPattern)")
       .attr("transform", transform(d3.zoomIdentity));
-
-var d3Zoom = d3.zoom()
-  .scaleExtent([0.7, 4])
-  .on("zoom", zoom);
 
 /*
 
@@ -273,15 +311,15 @@ var zoomNode = svg.append("g")
 
 */
 
-// Invisible Rectangle that intercepts Zoom/pan events across entire screen
+// Appends invisible Rectangle that intercepts zoom/pan events across entire screen
 svg.append("rect")
   .attr("fill", "none")
   .attr("pointer-events", "all")
   .attr("width", width)
   .attr("height", height)
   .attr("class", "otherRects")
-  .attr("class", "fullScreenSize")
-  .call(d3Zoom);
+  .attr("class", "fullScreenSize");
+  //.call(d3Zoom);
 
 /*
 
@@ -294,6 +332,9 @@ svg.append("rect")
 
 // .select("#zoomNode")
 
+// Appends "g" (group) elements according to the data in the xy coordinate array
+// These nodes will house everything related to stars/points on map
+// Class is "groupNode"
 var groupNode = svg.selectAll("g:not(#zoomNode)")
   .data(centerCoordinates(xy), function(d) { return d.name; })
   .enter().append("g")
@@ -302,6 +343,9 @@ var groupNode = svg.selectAll("g:not(#zoomNode)")
     .attr("id", gID)
     .attr("transform", transform(d3.zoomIdentity));
 
+// Appends "g" (group) elements according to the data in the paths1 coordinate array
+// These nodes will house everything related to lines on the map
+// Class is "lineNode"
 var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode)")
   .data(centerCoordinatesLine(paths1), function(d) { return d.name; })
   .enter().append("g")
@@ -310,6 +354,7 @@ var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode)")
     .attr("id", linegID)
     .attr("transform", transform(d3.zoomIdentity));
 
+// Appends lines to all "lineNode" elements, starting from 0,0 (since they already originate at the appropriate coordinates) and ending at the second set of path coordinates
 var line = svg.selectAll(".lineNode").append("line")
   .style("stroke", "rgba(255,255,255,0.3)")
   .style("stroke-width", "2px")
@@ -333,6 +378,7 @@ var lineNode = svg.selectAll("line")
     .attr("id", lineID)
     .attr("transform", transform(d3.zoomIdentity));*/
 
+// Appends a dark background rectangle to all "groupNode" elements, to block out the background in the card area when hovering
 var cardDarkRectangle = svg.selectAll(".groupNode").append("rect")
   .attr('pointer-events', 'none')
   .style("opacity", "0")
@@ -343,7 +389,7 @@ var cardDarkRectangle = svg.selectAll(".groupNode").append("rect")
   .attr("id", cardDarkID)
   .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")");
 
-// Generates background color rectangle for locations
+// Appends a colored background rectangle to all "groupNode" elements
 var cardRectangle = svg.selectAll(".groupNode").append("rect")
   .attr('pointer-events', 'none')
   .style("opacity", "0")
@@ -354,7 +400,7 @@ var cardRectangle = svg.selectAll(".groupNode").append("rect")
   .attr("id", cardID)
   .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")");
 
-// Generates corner pieces for rectangles on hover
+// Appends corner pieces for rectangles
 var cardRectangleTopLeft = svg.selectAll(".groupNode").append("rect")
   .attr('pointer-events', 'none')
   .style("opacity", "0")
@@ -407,7 +453,7 @@ var cardRectangleBottomRight = svg.selectAll(".groupNode").append("rect")
   .attr("id", cardBRID)
   .attr("transform", "translate(" + ((+widthOfCardBefore / 2) +10) + ", " + ((+heightOfCardBefore / 2) +10) + ")");
 
-// Circles generated for star visual
+// Appends icons for each node's center
 var starDot = svg.selectAll(".groupNode").append("svg:image")
   .attr('pointer-events', 'none')
   .attr('width', circleStarWidthBefore)
@@ -418,6 +464,7 @@ var starDot = svg.selectAll(".groupNode").append("svg:image")
   .attr("class", "starCirclesDot")
   .attr("id", starDotID);
 
+// Appends white circle that appears around node center on hover
 var starCircle = svg.selectAll(".groupNode").append("circle")
   .attr('pointer-events', 'none')
   .attr("r", circleRBefore)
@@ -428,6 +475,7 @@ var starCircle = svg.selectAll(".groupNode").append("circle")
   .attr("class", "starCircles")
   .attr("id", starID);
 
+// Appends colored rings around node centers
 var starRing = svg.selectAll(".groupNode").append("circle")
   .attr('pointer-events', 'none')
   .attr("r", circleRingRBefore)
@@ -438,6 +486,7 @@ var starRing = svg.selectAll(".groupNode").append("circle")
   .attr("class", "starCirclesRing")
   .attr("id", ringID);
 
+// Appends main name/title of nodes
 var textCard = svg.selectAll(".groupNode").append("foreignObject")
   .attr('pointer-events', 'none')
   .style("opacity", 1)
@@ -449,6 +498,7 @@ var textCard = svg.selectAll(".groupNode").append("foreignObject")
   .attr("id", textID)
   .attr("transform", "translate(" + ((-widthTextModule / 2)) + ", " + (verticalOffsetTextModule) + ")");
 
+// Appends quote text to card, visible after hover
 var quoteCard = svg.selectAll(".groupNode").append("foreignObject")
   .attr('pointer-events', 'none')
   .style("opacity", 0)
@@ -462,6 +512,7 @@ var quoteCard = svg.selectAll(".groupNode").append("foreignObject")
   .attr("id", textQuoteID)
   .attr("transform", "translate(" + ((-widthQuoteModule / 2)) + ", " + (verticalOffsetQuoteModule) + ")");
 
+// Appends description text to card, visible after hover
 var descCard = svg.selectAll(".groupNode").append("foreignObject")
   .attr('pointer-events', 'none')
   .style("opacity", 0)
@@ -475,6 +526,7 @@ var descCard = svg.selectAll(".groupNode").append("foreignObject")
   .attr("id", textDescID)
   .attr("transform", "translate(" + ((-widthDescModule / 2)) + ", " + (verticalOffsetDescModule) + ")");
 
+// Appends horizontal line to card under title, visible after hover
 var horizontalBar = svg.selectAll(".groupNode").append("rect")
   .attr('pointer-events', 'none')
   .style("opacity", "0")
@@ -485,22 +537,20 @@ var horizontalBar = svg.selectAll(".groupNode").append("rect")
   .attr("id", barID)
   .attr("transform", "translate(" + ((-widthOfCardBefore / 2) + 5) + ", " + ((-heightOfCardBefore / 2) + 5) + ")");
 
-// Invisible circles generated to intercept hover event
+// Appends invisible circles that intercept hover event
 var hoverCircle = svg.selectAll(".groupNode").append("circle")
   .attr("r", hitBoxRadius)
   .attr("fill", "none")
   .attr("pointer-events", "all")
   .on("mouseover", handleMouseOverStar)
   .on("mouseout", handleMouseOutStar)
-  .attr("id", mainID)
-  .call(d3Zoom);
+  .attr("id", mainID);
+  //.call(d3Zoom);
 
+// Calls function that redraws canvas according to screen size
 redraw();
-
+// Calls that function whenever window is resized
 window.addEventListener("resize", redraw);
-
-//{k: 1, x: 328, y: 165
-//groupNode.attr("transform", "translate(" + width/2 + ", " + height/2 + ")");
 
 }
 
