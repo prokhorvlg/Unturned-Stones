@@ -54,6 +54,7 @@ var paths2 = [];
 
 // Dasharray of lines (dashed, solid, etc...)
 var pathStrokes = [];
+var pathWidths = [];
 
 // Coordinates for the top-left corner of the "overlay" foreground (the grid that looks like it's above everything)
 var bgCoord = [[0 - (width*20.5/2),0 - (height*20.5/2)]];
@@ -69,6 +70,7 @@ Papa.parse("places.csv", {
         paths2.push([row.data[0][3], row.data[0][4]]);
         paths1Uncentered.push([row.data[0][1], row.data[0][2]]);
         pathStrokes.push(row.data[0][5]);
+        pathWidths.push(row.data[0][6]);
       }
       else {
         xy.push([parseInt(row.data[0][0]), parseInt(row.data[0][1])]);
@@ -187,10 +189,19 @@ var pathStroke = (function(){
   }
 })();
 
+var pathWidth = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return pathWidths[a];
+  }
+})();
+
 // Generate custom IDs for each element when called.
 // Any given item in a group will have the same number as the other items associated with it
 var mainID = (function(){var a = 0; return function(){return a++}})();
 var gID = (function(){var a = 0; return function(){return "g_" + a++}})();
+var gHoverID = (function(){var a = 0; return function(){return "gHover_" + a++}})();
 var linegID = (function(){var a = 0; return function(){return "lineg_" + a++}})();
 var lineID = (function(){var a = 0; return function(){return "line_" + a++}})();
 var starID = (function(){var a = 0; return function(){return "star_" + a++}})();
@@ -248,7 +259,7 @@ var verticalOffsetTextModule = 10;
 // Vertical offset after hover event
 var verticalOffsetTextModuleAfter = -130;
 // Font size before hover event
-var fontSizeBefore = "14px";
+var fontSizeBefore = "12px";
 // Font size after hover event
 var fontSizeAfter = "24px";
 
@@ -292,6 +303,7 @@ var bgNode = svg.selectAll("rect:not(#bg)")
   .data(bgCoord)
   .enter().append("rect")
       .attr("id", "bgPatternRect")
+      .style("opacity", 0.3)
       .attr("width", width*20)
       .attr("height", height*20)
       .attr("class", "otherRects")
@@ -311,15 +323,21 @@ var zoomNode = svg.append("g")
 
 */
 
-// Appends invisible Rectangle that intercepts zoom/pan events across entire screen
-svg.append("rect")
-  .attr("fill", "none")
-  .attr("pointer-events", "all")
-  .attr("width", width)
-  .attr("height", height)
-  .attr("class", "otherRects")
-  .attr("class", "fullScreenSize");
-  //.call(d3Zoom);
+
+
+// Appends icons for each node's center
+var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
+  .data([[0,0]])
+    .enter().append("svg:image")
+    .attr('pointer-events', 'none')
+    .attr('x', -339)
+    .attr('y', -1067)
+    .attr('width', 3600)
+    .attr('height', 3600)
+    .style("opacity", 0.1)
+    .attr("class", "bgStars")
+    .attr("xlink:href", "img/mapmarkers/untsmap2.png")
+    .attr("transform", transform(d3.zoomIdentity));
 
 /*
 
@@ -343,10 +361,19 @@ var groupNode = svg.selectAll("g:not(#zoomNode)")
     .attr("id", gID)
     .attr("transform", transform(d3.zoomIdentity));
 
+// Appends "g" (group) elements according to the data in the xy coordinate array
+// These nodes will house everything related to stars/points on map
+// Class is "groupNode"
+var groupNodeHover = svg.selectAll(".groupNode").append("g")
+    .attr("class", "groupNodeHover")
+    .attr("pointer-events", "none")
+    .attr("id", gHoverID);
+    //.attr("transform", transform(d3.zoomIdentity));
+
 // Appends "g" (group) elements according to the data in the paths1 coordinate array
 // These nodes will house everything related to lines on the map
 // Class is "lineNode"
-var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode)")
+var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode):not(.groupNodeHover)")
   .data(centerCoordinatesLine(paths1), function(d) { return d.name; })
   .enter().append("g")
     .attr("class", "lineNode")
@@ -356,8 +383,8 @@ var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode)")
 
 // Appends lines to all "lineNode" elements, starting from 0,0 (since they already originate at the appropriate coordinates) and ending at the second set of path coordinates
 var line = svg.selectAll(".lineNode").append("line")
-  .style("stroke", "rgba(255,255,255,0.3)")
-  .style("stroke-width", "2px")
+  .style("stroke", "rgba(255,255,255,0.1)")
+  .style("stroke-width", pathWidth + "px")
   .style("stroke-linecap", "round")
   .style("stroke-dasharray", pathStroke)
   .attr("x1", 0)
@@ -366,92 +393,6 @@ var line = svg.selectAll(".lineNode").append("line")
   .attr("class", "lineEl")
   .attr("x2", (path2X))
   .attr("y2", (path2Y));
-
-/*
-var lineNode = svg.selectAll("line")
-  .data(pathxy, function(d) { return d.name; })
-  .enter().append("line")
-    .attr("class", "lineNode")
-    .attr("pointer-events", "none")
-    .style("stroke", "#fff")
-    .style("stroke-width", "2")
-    .attr("id", lineID)
-    .attr("transform", transform(d3.zoomIdentity));*/
-
-// Appends a dark background rectangle to all "groupNode" elements, to block out the background in the card area when hovering
-var cardDarkRectangle = svg.selectAll(".groupNode").append("rect")
-  .attr('pointer-events', 'none')
-  .style("opacity", "0")
-  .attr("width", widthOfCardBefore)
-  .attr("height", heightOfCardBefore)
-  .style("fill", "rgba(0,0,0,1)")
-  .attr("class", "cardRectangleDark")
-  .attr("id", cardDarkID)
-  .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")");
-
-// Appends a colored background rectangle to all "groupNode" elements
-var cardRectangle = svg.selectAll(".groupNode").append("rect")
-  .attr('pointer-events', 'none')
-  .style("opacity", "0")
-  .attr("width", widthOfCardBefore)
-  .attr("height", heightOfCardBefore)
-  .style("fill", cardColor)
-  .attr("class", "cardRectangle")
-  .attr("id", cardID)
-  .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")");
-
-// Appends corner pieces for rectangles
-var cardRectangleTopLeft = svg.selectAll(".groupNode").append("rect")
-  .attr('pointer-events', 'none')
-  .style("opacity", "0")
-  .attr("width", "50px")
-  .attr("height", "50px")
-  .style("stroke", "#fff")
-  .style("stroke-dasharray", "50,50,00")
-  .style("stroke-width", "2")
-  .style("fill", "none")
-  .attr("class", "cardRectangleBorder")
-  .attr("id", cardTLID)
-  .attr("transform", "translate(" + ((-widthOfCardBefore / 2) -10) + ", " + ((-heightOfCardBefore / 2) -10) + ")");
-
-var cardRectangleTopRight = svg.selectAll(".groupNode").append("rect")
-  .attr('pointer-events', 'none')
-  .style("opacity", "0")
-  .attr("width", "50px")
-  .attr("height", "50px")
-  .style("stroke", "#fff")
-  .style("stroke-dasharray", "50,0,50")
-  .style("stroke-width", "2")
-  .style("fill", "none")
-  .attr("class", "cardRectangleBorder")
-  .attr("id", cardTRID)
-  .attr("transform", "translate(" + ((+widthOfCardBefore / 2) +10) + ", " + ((-heightOfCardBefore / 2) -10) + ")");
-
-var cardRectangleBottomLeft = svg.selectAll(".groupNode").append("rect")
-  .attr('pointer-events', 'none')
-  .style("opacity", "0")
-  .attr("width", "50px")
-  .attr("height", "50px")
-  .style("stroke", "#fff")
-  .style("stroke-dasharray", "0,100,00")
-  .style("stroke-width", "2")
-  .style("fill", "none")
-  .attr("class", "cardRectangleBorder")
-  .attr("id", cardBLID)
-  .attr("transform", "translate(" + ((-widthOfCardBefore / 2) -10) + ", " + ((+heightOfCardBefore / 2) +10) + ")");
-
-var cardRectangleBottomRight = svg.selectAll(".groupNode").append("rect")
-  .attr('pointer-events', 'none')
-  .style("opacity", "0")
-  .attr("width", "50px")
-  .attr("height", "50px")
-  .style("stroke", "#fff")
-  .style("stroke-dasharray", "00,50,50")
-  .style("stroke-width", "2")
-  .style("fill", "none")
-  .attr("class", "cardRectangleBorder")
-  .attr("id", cardBRID)
-  .attr("transform", "translate(" + ((+widthOfCardBefore / 2) +10) + ", " + ((+heightOfCardBefore / 2) +10) + ")");
 
 // Appends icons for each node's center
 var starDot = svg.selectAll(".groupNode").append("svg:image")
@@ -463,17 +404,6 @@ var starDot = svg.selectAll(".groupNode").append("svg:image")
   .attr("xlink:href", marker)
   .attr("class", "starCirclesDot")
   .attr("id", starDotID);
-
-// Appends white circle that appears around node center on hover
-var starCircle = svg.selectAll(".groupNode").append("circle")
-  .attr('pointer-events', 'none')
-  .attr("r", circleRBefore)
-  .style("opacity", 0)
-  .style("stroke", "#fff")
-  .style("stroke-width", "2")
-  .style("fill", "none")
-  .attr("class", "starCircles")
-  .attr("id", starID);
 
 // Appends colored rings around node centers
 var starRing = svg.selectAll(".groupNode").append("circle")
@@ -498,45 +428,6 @@ var textCard = svg.selectAll(".groupNode").append("foreignObject")
   .attr("id", textID)
   .attr("transform", "translate(" + ((-widthTextModule / 2)) + ", " + (verticalOffsetTextModule) + ")");
 
-// Appends quote text to card, visible after hover
-var quoteCard = svg.selectAll(".groupNode").append("foreignObject")
-  .attr('pointer-events', 'none')
-  .style("opacity", 0)
-  .style("color", quoteColor)
-  .attr("width", widthQuoteModule)
-  .attr("height", "100px")
-  .style("font-size", fontSizeQuote)
-  .style("font-family", "'Roboto Condensed', Arial, sans-serif")
-  .style("font-style", "italic")
-  .html(quoteDesc)
-  .attr("id", textQuoteID)
-  .attr("transform", "translate(" + ((-widthQuoteModule / 2)) + ", " + (verticalOffsetQuoteModule) + ")");
-
-// Appends description text to card, visible after hover
-var descCard = svg.selectAll(".groupNode").append("foreignObject")
-  .attr('pointer-events', 'none')
-  .style("opacity", 0)
-  .style("color", "#fff")
-  .style("text-align", "center")
-  .style("text-align-last", "center")
-  .attr("width", widthDescModule)
-  .attr("height", "500px")
-  .style("font-size", fontSizeDesc)
-  .html(descDesc)
-  .attr("id", textDescID)
-  .attr("transform", "translate(" + ((-widthDescModule / 2)) + ", " + (verticalOffsetDescModule) + ")");
-
-// Appends horizontal line to card under title, visible after hover
-var horizontalBar = svg.selectAll(".groupNode").append("rect")
-  .attr('pointer-events', 'none')
-  .style("opacity", "0")
-  .attr("width", widthOfCardBefore - 10)
-  .attr("height", 2)
-  .attr("fill", "#fff")
-  .attr("class", "horizontalBar")
-  .attr("id", barID)
-  .attr("transform", "translate(" + ((-widthOfCardBefore / 2) + 5) + ", " + ((-heightOfCardBefore / 2) + 5) + ")");
-
 // Appends invisible circles that intercept hover event
 var hoverCircle = svg.selectAll(".groupNode").append("circle")
   .attr("r", hitBoxRadius)
@@ -556,8 +447,11 @@ window.addEventListener("resize", redraw);
 
 // Allows zooming over rectangle
 function zoom() {
-  var groupNode = svg.selectAll("g");
+  var groupNode = svg.selectAll("g:not(.groupNodeHover)");
   groupNode.attr("transform", transform(d3.event.transform));
+
+  var bgStars = svg.selectAll(".bgStars");
+  bgStars.attr("transform", transformBG(d3.event.transform));
 
   var bgPatternRect = svg.selectAll("#bgPatternRect");
   bgPatternRect.attr("transform", transformNSGrid(d3.event.transform));
@@ -586,6 +480,12 @@ function transformNS(t) {
   };
 }
 
+function transformBG(t) {
+  return function(d) {
+    return "translate(" + t.applyX(d[0]) + ", " + t.applyY(d[1]) + ") scale(" + d3.event.transform.k + ")";
+  };
+}
+
 function transformNSGrid(t) {
   return function(d) {
     //console.log(d[0])
@@ -597,6 +497,145 @@ function transformNSGrid(t) {
 function handleMouseOverStar(d, i) {
 
   d3.select("#g_" + this.id).moveToFront();
+
+  // Appends a dark background rectangle to "groupNode" element, to block out the background in the card area when hovering
+d3.select("#gHover_" + this.id).append("rect")
+  .attr('pointer-events', 'none')
+  .style("opacity", "0")
+  .attr("width", widthOfCardBefore)
+  .attr("height", heightOfCardBefore)
+  .style("fill", "rgba(0,0,0,1)")
+  //.attr("class", "cardRectangleDark")
+  .attr("class", "cardComponents" + this.id)
+  .attr("id", "cardDark_" + this.id)
+  .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")");
+
+// Appends a colored background rectangle to "groupNode" element
+d3.select("#gHover_" + this.id).append("rect")
+  .attr('pointer-events', 'none')
+  .style("opacity", "0")
+  .attr("width", widthOfCardBefore)
+  .attr("height", heightOfCardBefore)
+  .style("fill", colors[this.id])
+  //.attr("class", "cardRectangle")
+  .attr("class", "cardComponents" + this.id)
+  .attr("id", "card_" + this.id)
+  .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")");
+
+// Appends corner pieces for rectangles
+d3.select("#gHover_" + this.id).append("rect")
+  .attr('pointer-events', 'none')
+  .style("opacity", "0")
+  .attr("width", "50px")
+  .attr("height", "50px")
+  .style("stroke", "#fff")
+  .style("stroke-dasharray", "50,50,00")
+  .style("stroke-width", "2")
+  .style("fill", "none")
+  .attr("class", "cardRectangleBorder")
+  .attr("class", "cardComponents" + this.id)
+  .attr("id", "cardTL_" + this.id)
+  .attr("transform", "translate(" + ((-widthOfCardBefore / 2) -10) + ", " + ((-heightOfCardBefore / 2) -10) + ")");
+
+d3.select("#gHover_" + this.id).append("rect")
+  .attr('pointer-events', 'none')
+  .style("opacity", "0")
+  .attr("width", "50px")
+  .attr("height", "50px")
+  .style("stroke", "#fff")
+  .style("stroke-dasharray", "50,0,50")
+  .style("stroke-width", "2")
+  .style("fill", "none")
+  .attr("class", "cardRectangleBorder")
+  .attr("class", "cardComponents" + this.id)
+  .attr("id", "cardTR_" + this.id)
+  .attr("transform", "translate(" + ((+widthOfCardBefore / 2) +10) + ", " + ((-heightOfCardBefore / 2) -10) + ")");
+
+d3.select("#gHover_" + this.id).append("rect")
+  .attr('pointer-events', 'none')
+  .style("opacity", "0")
+  .attr("width", "50px")
+  .attr("height", "50px")
+  .style("stroke", "#fff")
+  .style("stroke-dasharray", "0,100,00")
+  .style("stroke-width", "2")
+  .style("fill", "none")
+  .attr("class", "cardRectangleBorder")
+  .attr("class", "cardComponents" + this.id)
+  .attr("id", "cardBL_" + this.id)
+  .attr("transform", "translate(" + ((-widthOfCardBefore / 2) -10) + ", " + ((+heightOfCardBefore / 2) +10) + ")");
+
+d3.select("#gHover_" + this.id).append("rect")
+  .attr('pointer-events', 'none')
+  .style("opacity", "0")
+  .attr("width", "50px")
+  .attr("height", "50px")
+  .style("stroke", "#fff")
+  .style("stroke-dasharray", "00,50,50")
+  .style("stroke-width", "2")
+  .style("fill", "none")
+  .attr("class", "cardRectangleBorder")
+  .attr("class", "cardComponents" + this.id)
+  .attr("id", "cardBR_" + this.id)
+  .attr("transform", "translate(" + ((+widthOfCardBefore / 2) +10) + ", " + ((+heightOfCardBefore / 2) +10) + ")");
+
+
+
+// Appends quote text to card, visible after hover
+d3.select("#gHover_" + this.id).append("foreignObject")
+  .attr('pointer-events', 'none')
+  .style("opacity", 0)
+  .style("color", colors[this.id])
+  .attr("width", widthQuoteModule)
+  .attr("height", "100px")
+  .style("font-size", fontSizeQuote)
+  .style("font-family", "'Roboto Condensed', Arial, sans-serif")
+  .style("font-style", "italic")
+  .attr("class", "cardComponents" + this.id)
+  .html(quoteDescs[this.id])
+  .attr("id", "textQuote_" + this.id)
+  .attr("transform", "translate(" + ((-widthQuoteModule / 2)) + ", " + (verticalOffsetQuoteModule) + ")");
+
+// Appends description text to card, visible after hover
+d3.select("#gHover_" + this.id).append("foreignObject")
+  .attr('pointer-events', 'none')
+  .style("opacity", 0)
+  .style("color", "#fff")
+  .style("text-align", "center")
+  .style("text-align-last", "center")
+  .attr("width", widthDescModule)
+  .attr("height", "500px")
+  .style("font-size", fontSizeDesc)
+  .attr("class", "cardComponents" + this.id)
+  .html(descDescs[this.id])
+  .attr("id", "textDesc_" + this.id)
+  .attr("transform", "translate(" + ((-widthDescModule / 2)) + ", " + (verticalOffsetDescModule) + ")");
+
+// Appends horizontal line to card under title, visible after hover
+d3.select("#gHover_" + this.id).append("rect")
+  .attr('pointer-events', 'none')
+  .style("opacity", "0")
+  .attr("width", widthOfCardBefore - 10)
+  .attr("height", 2)
+  .attr("fill", "#fff")
+  .attr("class", "horizontalBar")
+  .attr("class", "cardComponents" + this.id)
+  .attr("id", "bar_" + this.id)
+  .attr("transform", "translate(" + ((-widthOfCardBefore / 2) + 5) + ", " + ((-heightOfCardBefore / 2) + 5) + ")");
+
+// Appends white circle that appears around node center on hover
+d3.select("#gHover_" + this.id).append("circle")
+  .attr('pointer-events', 'none')
+  .attr("r", circleRBefore)
+  .style("opacity", 0)
+  .style("stroke", "#fff")
+  .style("stroke-width", "2")
+  .style("fill", "none")
+  .attr("class", "starCircles")
+  .attr("class", "cardComponents" + this.id)
+  .attr("id", "star_" + this.id);
+
+
 
   d3.select("#star_" + this.id).transition()
     .duration(200)
@@ -684,6 +723,7 @@ function handleMouseOverStar(d, i) {
 
 // Handles MouseOut event for stars
 function handleMouseOutStar(d, i) {
+
   d3.select("#star_" + this.id).transition()
     .duration(200)
     .style("opacity", 0)
@@ -763,6 +803,8 @@ function handleMouseOutStar(d, i) {
     .style("opacity", "0")
     .attr("width", widthOfCardBefore - 10)
     .attr("transform", "translate(" + ((-widthOfCardBefore / 2) + 5) + ", " + ((-heightOfCardBefore / 2) + 5) + ")");
+
+    svg.selectAll(".cardComponents" + this.id).transition(1).remove();
 
 }
 
