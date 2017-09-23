@@ -1,4 +1,4 @@
-﻿x,y,starNames,quoteDescs,descDescs,colors,markers,,References
+x,y,starNames,quoteDescs,descDescs,colors,markers,,References
 0,0,America,They were once a proud people.<br>They were brave and free.,"As the system host to the Federation’s homeworld, America is considered to be the center of the known world by many explorers, despite its status as a subjugate region to the Confederacy.",#85eb4d,startower,,10 5 5 10
 116,32,Ziraguan,"Half of the system is city,<br>but there's not a human in sight.","Every planet of this system is packed with industrial equipment, driven by interstellar AI under the command of the Emperor-King and corporations on the Conglomerate Council.",#85eb4d,startower,,solid
 -23,-140,Liberty Star,,,#4deb89,accessible,,
@@ -17,8 +17,8 @@
 -176,-505,Chromadel,,,#4d63eb,startower,,
 -316,-545,Ivaar,,,#4debe5,accessible,,
 100,-20,Durabond,"""Durabond! Get the galaxy's favorite bonding agent today!""",,#4deb89,accessible,,
-path,0,0,100,-20,solid,5,,
-path,0,0,116,32,solid,5,,
+path,0,0,100,-20,solid,4,,
+path,0,0,116,32,solid,4,,
 path,0,0,-23,-140,solid,2,,
 path,0,0,-58,-105,solid,2,,
 path,-23,-140,-238,-250,5 5,2,,
@@ -34,3 +34,7 @@ path,-228,-320,-328,-350,5 5,2,,
 path,-228,-320,-176,-505,5 5,2,,
 path,-176,-505,-66,-305,solid,2,,
 path,-328,-350,-316,-545,solid,2,,
+-90,60,Kindle Point,,,#4db5eb,accessible,,10 5 5 10
+-160,170,Prospect Forge,,,#4debe5,accessible,,10 5 5 10
+-20,190,Vadrine's Run,,,#4db5eb,startower,,10 5 5 10
+-60,260,Genuit,,,#4debe5,accessible,,10 5 5 10

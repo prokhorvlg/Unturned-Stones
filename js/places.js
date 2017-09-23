@@ -16,7 +16,7 @@ var margin = {top: 0, right: 0, bottom: 0, left: 0},
     height = window.innerHeight;
 
 // Appends SVG Canvas to document body
-var svg = d3.select("body").append("center").append("svg")
+var svg = d3.select("#svgContainer").append("center").append("svg")
     .attr("width", width)
     .attr("height", height)
     .call(d3Zoom);
@@ -197,6 +197,16 @@ var pathWidth = (function(){
   }
 })();
 
+var pathWidth2 = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return pathWidths[a];
+  }
+})();
+
+var lineElStrokes = {};
+
 // Generate custom IDs for each element when called.
 // Any given item in a group will have the same number as the other items associated with it
 var mainID = (function(){var a = 0; return function(){return a++}})();
@@ -330,11 +340,11 @@ var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
   .data([[0,0]])
     .enter().append("svg:image")
     .attr('pointer-events', 'none')
-    .attr('x', -339)
-    .attr('y', -1067)
+    .attr('x', -409)
+    .attr('y', -1167)
     .attr('width', 3600)
     .attr('height', 3600)
-    .style("opacity", 0.1)
+    .style("opacity", 0.0)
     .attr("class", "bgStars")
     .attr("xlink:href", "img/mapmarkers/untsmap2.png")
     .attr("transform", transform(d3.zoomIdentity));
@@ -384,13 +394,14 @@ var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode):not(.groupNodeHov
 // Appends lines to all "lineNode" elements, starting from 0,0 (since they already originate at the appropriate coordinates) and ending at the second set of path coordinates
 var line = svg.selectAll(".lineNode").append("line")
   .style("stroke", "rgba(255,255,255,0.1)")
-  .style("stroke-width", pathWidth + "px")
+  .style("stroke-width", pathWidth)
   .style("stroke-linecap", "round")
   .style("stroke-dasharray", pathStroke)
   .attr("x1", 0)
   .attr("y1", 0)
   .attr("id", lineID)
   .attr("class", "lineEl")
+  //.attr("id", pathWidth2)
   .attr("x2", (path2X))
   .attr("y2", (path2Y));
 
@@ -438,6 +449,10 @@ var hoverCircle = svg.selectAll(".groupNode").append("circle")
   .attr("id", mainID);
   //.call(d3Zoom);
 
+d3.selectAll(".lineEl").each( function(d, i){
+  lineElStrokes[this.id.substring(5)] = pathWidth2;
+});
+
 // Calls function that redraws canvas according to screen size
 redraw();
 // Calls that function whenever window is resized
@@ -459,8 +474,13 @@ function zoom() {
   var line = svg.selectAll(".lineNode");
   line.attr("transform", transformNS(d3.event.transform));
 
-  var lineEl = svg.selectAll(".lineEl");
-  lineEl.style("stroke-width", (2/d3.event.transform.k) + "px");
+  //var lineEl = svg.selectAll(".lineEl");
+  //[lineEl..substring(5)]
+  //lineEl.style("stroke-width", lineElStrokes[this.]/d3.event.transform.k);
+
+  d3.selectAll(".lineEl").each( function(d, i){
+    d3.select(this).style("stroke-width", lineElStrokes[this.id]/d3.event.transform.k);
+  });
 }
 
 // Allows panning across rectangle
@@ -746,14 +766,16 @@ function handleMouseOutStar(d, i) {
     .style("opacity", "0")
     .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")")
     .attr("width", widthOfCardBefore)
-    .attr("height", heightOfCardBefore);
+    .attr("height", heightOfCardBefore)
+    .remove();
 
   d3.select("#card_" + this.id).transition()
     .duration(300)
     .style("opacity", "0")
     .attr("transform", "translate(" + (-widthOfCardBefore / 2) + ", " + (-heightOfCardBefore / 2) + ")")
     .attr("width", widthOfCardBefore)
-    .attr("height", heightOfCardBefore);
+    .attr("height", heightOfCardBefore)
+    .remove();
 
   d3.select("#cardTL_" + this.id).transition()
     .duration(200)
