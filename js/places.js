@@ -301,19 +301,42 @@ svg.append("defs")
     .append("pattern")
     .attr("id", "bgPattern")
     .attr('patternUnits', 'userSpaceOnUse')
-    .attr("width", 500)
-    .attr("height", 500)
+    .attr("width", 100)
+    .attr("height", 100)
     .append("image")
-    .attr("xlink:href", "img/mapmarkers/gridTile3.png")
-    .attr("width", 500)
-    .attr("height", 500);
+    .attr("xlink:href", "img/mapmarkers/gridTile.png")
+    .attr("width", 100)
+    .attr("height", 100);
+
+  // Appends icons for each node's center
+var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
+  .data([[0,0]])
+    .enter().append("svg:image")
+    .attr('pointer-events', 'none')
+    //.attr('x', -409)
+    //.attr('y', -1167)
+    /*
+    .attr('x', -339)
+    .attr('y', -1067)
+    .attr('width', 3600)
+    .attr('height', 3600)
+    */
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', 1920)
+    .attr('height', 1080)
+    .style("opacity", 0.2)
+    .attr("class", "bgStars")
+    .attr("xlink:href", "img/mapmarkers/dark-nebula-29059-1920x1080.jpg")
+    //.attr("xlink:href", "img/mapmarkers/untsmap2.png")
+    .attr("transform", transform(d3.zoomIdentity));
 
 // Appends the "overlay" foreground element with the pattern defined previously
 var bgNode = svg.selectAll("rect:not(#bg)")
   .data(bgCoord)
   .enter().append("rect")
       .attr("id", "bgPatternRect")
-      .style("opacity", 0.3)
+      .style("opacity", 0.2)
       .attr("width", width*20)
       .attr("height", height*20)
       .attr("class", "otherRects")
@@ -334,20 +357,6 @@ var zoomNode = svg.append("g")
 */
 
 
-
-// Appends icons for each node's center
-var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
-  .data([[0,0]])
-    .enter().append("svg:image")
-    .attr('pointer-events', 'none')
-    .attr('x', -409)
-    .attr('y', -1167)
-    .attr('width', 3600)
-    .attr('height', 3600)
-    .style("opacity", 0.0)
-    .attr("class", "bgStars")
-    .attr("xlink:href", "img/mapmarkers/untsmap2.png")
-    .attr("transform", transform(d3.zoomIdentity));
 
 /*
 
@@ -466,7 +475,7 @@ function zoom() {
   groupNode.attr("transform", transform(d3.event.transform));
 
   var bgStars = svg.selectAll(".bgStars");
-  bgStars.attr("transform", transformBG(d3.event.transform));
+  bgStars.attr("transform", transformBGTrue(d3.event.transform));
 
   var bgPatternRect = svg.selectAll("#bgPatternRect");
   bgPatternRect.attr("transform", transformNSGrid(d3.event.transform));
@@ -474,13 +483,13 @@ function zoom() {
   var line = svg.selectAll(".lineNode");
   line.attr("transform", transformNS(d3.event.transform));
 
-  //var lineEl = svg.selectAll(".lineEl");
+  var lineEl = svg.selectAll(".lineEl");
   //[lineEl..substring(5)]
-  //lineEl.style("stroke-width", lineElStrokes[this.]/d3.event.transform.k);
+  lineEl.style("stroke-width", 2/d3.event.transform.k);
 
-  d3.selectAll(".lineEl").each( function(d, i){
+  /*d3.selectAll(".lineEl").each( function(d, i){
     d3.select(this).style("stroke-width", lineElStrokes[this.id]/d3.event.transform.k);
-  });
+  });*/
 }
 
 // Allows panning across rectangle
@@ -509,7 +518,18 @@ function transformBG(t) {
 function transformNSGrid(t) {
   return function(d) {
     //console.log(d[0])
-    return "translate(" + (1.2 * t.applyX(d[0])) + ", " + (1.2 * t.applyY(d[1])) + ") scale(" + d3.event.transform.k + ")";
+    return "translate(" + (0.8 * t.applyX(d[0])) + ", " + (0.8 * t.applyY(d[1])) + ") scale(" + d3.event.transform.k + ")";
+  };
+}
+
+function transformBGTrue(t) {
+  return function(d) {
+    //console.log(d[0])
+    var bgStars = svg.selectAll(".bgStars"); 
+    bgStars.attr("x", -d3.event.transform.k*1920/t.applyX(d[0]));
+    bgStars.attr("y", -d3.event.transform.k*1080/t.applyY(d[1]));
+
+    return "translate(" + (0.1 * t.applyX(d[0])) + ", " + (0.1 * t.applyY(d[1])) + ") scale(" + d3.event.transform.k + ")";
   };
 }
 
