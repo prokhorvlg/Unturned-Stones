@@ -3,15 +3,15 @@ x,y,starNames,quoteDescs,descDescs,colors,markers,,References
 116,32,Ziraguan,"Half of the system is city,<br>but there's not a human in sight.","Every planet of this system is packed with industrial equipment, driven by interstellar AI under the command of the Emperor-King and corporations on the Conglomerate Council.",#85eb4d,startower,,solid
 -23,-140,Liberty Star,,,#4deb89,accessible,,
 390,62,Qian Xuesen,"""If you see an Imperial, duck.""<br>- Public Service Announcement","For centuries, Qian Xuesen was considered the jewel of the Conglomerate, boasting beautiful cities and extensive industry. Now, the system is under threat on two fronts.",#4deb89,startower,,
-230,220,Xiofang,,"The system is described by many as a ""perpetual conflict zone"" for good reason. Xiofang is a lawless wasteland, cursed by its strategic location in the Outer Systems.",#4db5eb,blackhole,,
+230,220,Xiofang,"""This system is plagued by the<br>minions of the Despised...""","The system is described by many as a ""perpetual conflict zone"" for good reason. Xiofang is a lawless wasteland, cursed by its strategic location in the Outer Systems.",#4db5eb,blackhole,,
 360,0,Fenrir,"Like the beast, Fenrir is unbound.<br>Unlike the beast, Fenrir yet wanders.","The Empire has recently begun to expand their industrial capacities by capturing old Conglomerate Corporate facilities in this small, tumultuous solar system.",#4db5eb,difficult,,
 279,262,Riley's Charter,If you get close enough to it…<br>You just might hear their voices.,"Named after the unfortunate explorer Evan James Riley, who's starship can still be found orbiting the star, this system is well-documented and uneventful... according to the locals.",#4debe5,difficult,,
 178,315,Bink,"""Most appealing destination for scumbags"" - VU Magazine","As the economic hub of the League, Bink can hardly be recognized as a colonial system settled by just a couple of very lucky privateers escaping the Conglomerate centuries ago.",#4d63eb,startower,,
--58,-105,Korshid,// Home of the faithful<br>// The star that betrayed us all,"The homeworld of the Confederacy, Sakram, is a dusty, uninhabitable rock in this system. The people who live on it believe that their ancestors landing there  was a blessing and a curse.",#85eb4d,startower,,
--158,-140,Darakhshanda,// Brilliance in the night sky<br>// She will lead us to victory,,#4deb89,accessible,,
--238,-250,Qat'e,Sense the storm brewing?<br>The gates will crash at Secant.,,#4db5eb,startower,,
+-58,-105,Korshid,[Home] of the faithful.<br>The star that betrayed us all.,"The homeworld of the Confederacy, Sakram, is a dusty, uninhabitable rock in this system. The people who live on it believe that their ancestors landing there  was a blessing and a curse.",#85eb4d,startower,,
+-158,-140,Darakhshanda,[Brilliance] in the night sky.<br>She will lead us to victory.,,#4deb89,accessible,,
+-238,-250,Qat'e,Sense the storm brewing?<br>The gates will crash at [Secant].,,#4db5eb,startower,,
 -228,-320,Tupor,,,#4db5eb,startower,,
--328,-350,Killian Labs,The stoic stench of ammonia meanders among the stations of Killian.,,#4debe5,difficult,,
+-328,-350,Killian Labs,The stench of ammonia meanders among the stations of Killian.,,#4debe5,difficult,,
 -118,-340,Efrit,,,#4debe5,accessible,,
 -66,-305,Swolo,,,#4db5eb,accessible,,
 -176,-505,Chromadel,,,#4d63eb,startower,,
@@ -34,7 +34,7 @@ path,-228,-320,-328,-350,5 5,2,,
 path,-228,-320,-176,-505,5 5,2,,
 path,-176,-505,-66,-305,solid,2,,
 path,-328,-350,-316,-545,solid,2,,
--90,60,Kindle Point,,,#4db5eb,accessible,,10 5 5 10
--160,170,Prospect Forge,,,#4debe5,accessible,,10 5 5 10
--20,190,Vadrine's Run,,,#4db5eb,startower,,10 5 5 10
--60,260,Genuit,,,#c04deb,accessible,,10 5 5 10
+-90,60,Kindle Point,A lonely and masked system.<br>Favored by black ops.,,#4db5eb,accessible,,10 5 5 10
+-160,170,Prospect Forge,Do you see it? Those lights dancing among the asteroids?,,#4debe5,accessible,,10 5 5 10
+-20,190,Vadrine's Run,"The gears of the old world continue to turn, unperturbed and forever.",,#4db5eb,startower,,10 5 5 10
+-60,260,Genuit,If only we were blessed enough to be visited again.,,#c04deb,accessible,,10 5 5 10

@@ -469,16 +469,20 @@ window.addEventListener("resize", redraw);
 
 }
 
+/*function zoom() {
+  g.attr("transform", d3.event.transform);
+}*/
+
 // Allows zooming over rectangle
 function zoom() {
   var groupNode = svg.selectAll("g:not(.groupNodeHover)");
   groupNode.attr("transform", transform(d3.event.transform));
 
   var bgStars = svg.selectAll(".bgStars");
-  bgStars.attr("transform", transformBGTrue(d3.event.transform));
+  bgStars.attr("transform", d3.event.transform);
 
   var bgPatternRect = svg.selectAll("#bgPatternRect");
-  bgPatternRect.attr("transform", transformNSGrid(d3.event.transform));
+  bgPatternRect.attr("transform", d3.event.transform);
 
   var line = svg.selectAll(".lineNode");
   line.attr("transform", transformNS(d3.event.transform));
