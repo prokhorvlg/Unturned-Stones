@@ -1,6 +1,12 @@
+// Defines dimensions of SVG
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+    width = window.innerWidth,
+    height = window.innerHeight;
+
 // Defines procedure for elements that intercept zoom/pan events
 var d3Zoom = d3.zoom()
   .scaleExtent([1, 4])
+  .translateExtent([[-2000 + width/2, -2000 + height/2], [2000 + width/2, 2000 + height/2]])
   .on("zoom", zoom);
 
 // Function that moves the hovered node/card to the top
@@ -10,16 +16,12 @@ d3.selection.prototype.moveToFront = function() {
   });
 };
 
-// Defines dimensions of SVG
-var margin = {top: 0, right: 0, bottom: 0, left: 0},
-    width = window.innerWidth,
-    height = window.innerHeight;
-
 // Appends SVG Canvas to document body
 var svg = d3.select("#svgContainer").append("center").append("svg")
     .attr("width", width)
     .attr("height", height)
-    .call(d3Zoom);
+    .call(d3Zoom)
+    .on("dblclick.zoom", null);
 
 // Appends grey rectangle across entire canvas
 svg.append("rect")
@@ -55,9 +57,13 @@ var paths2 = [];
 // Dasharray of lines (dashed, solid, etc...)
 var pathStrokes = [];
 var pathWidths = [];
+var pathColors = [];
+var pathOpacitys = [];
 
 // Coordinates for the top-left corner of the "overlay" foreground (the grid that looks like it's above everything)
 var bgCoord = [[0 - (width*20.5/2),0 - (height*20.5/2)]];
+
+var multiConst = 1;
 
 // Parses CSV file with all node data, appends it to appropriate array
 // Relies on Papa library
@@ -71,6 +77,8 @@ Papa.parse("places.csv", {
         paths1Uncentered.push([row.data[0][1], row.data[0][2]]);
         pathStrokes.push(row.data[0][5]);
         pathWidths.push(row.data[0][6]);
+        pathColors.push(row.data[0][7]);
+        pathOpacitys.push(row.data[0][8]);
       }
       else {
         xy.push([parseInt(row.data[0][0]), parseInt(row.data[0][1])]);
@@ -85,6 +93,20 @@ Papa.parse("places.csv", {
   },
   complete: function() {
     // Once parse is complete, run the function that draws the elements
+    for (var i = 0; i < xy.length; i++){
+      xy[i][0] = xy[i][0] * multiConst;
+      xy[i][1] = xy[i][1] * multiConst;
+    }
+    for (var i = 0; i < paths1.length; i++){
+      paths1[i][0] = paths1[i][0] * multiConst;
+      paths1[i][1] = paths1[i][1] * multiConst;
+
+      paths2[i][0] = paths2[i][0] * multiConst;
+      paths2[i][1] = paths2[i][1] * multiConst;
+
+      paths1Uncentered[i][0] = paths1Uncentered[i][0] * multiConst;
+      paths1Uncentered[i][1] = paths1Uncentered[i][1] * multiConst;
+    }
     makeMap();
   }
 });
@@ -205,6 +227,22 @@ var pathWidth2 = (function(){
   }
 })();
 
+var pathColor = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return pathColors[a];
+  }
+})();
+
+var pathOpacity = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return pathOpacitys[a];
+  }
+})();
+
 var lineElStrokes = {};
 
 // Generate custom IDs for each element when called.
@@ -296,17 +334,19 @@ var fontSizeDesc = "12px";
 // Function that draws the elements in the arrays after the parse is complete
 function makeMap(){
 
+  var gridScale = 50;
+
 // Appends a defs element, and the pattern to be used on the "overlay" foreground
 svg.append("defs")
     .append("pattern")
     .attr("id", "bgPattern")
     .attr('patternUnits', 'userSpaceOnUse')
-    .attr("width", 100)
-    .attr("height", 100)
+    .attr("width", gridScale)
+    .attr("height", gridScale)
     .append("image")
     .attr("xlink:href", "img/mapmarkers/gridTile.png")
-    .attr("width", 100)
-    .attr("height", 100);
+    .attr("width", gridScale)
+    .attr("height", gridScale);
 
   // Appends icons for each node's center
 var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
@@ -315,20 +355,20 @@ var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
     .attr('pointer-events', 'none')
     //.attr('x', -409)
     //.attr('y', -1167)
-    /*
+    
     .attr('x', -339)
     .attr('y', -1067)
     .attr('width', 3600)
     .attr('height', 3600)
-    */
-    .attr('x', 0)
+    
+    /*.attr('x', 0)
     .attr('y', 0)
     .attr('width', 1920)
-    .attr('height', 1080)
-    .style("opacity", 0.2)
+    .attr('height', 1080)*/
+    .style("opacity", 0.3)
     .attr("class", "bgStars")
-    .attr("xlink:href", "img/mapmarkers/dark-nebula-29059-1920x1080.jpg")
-    //.attr("xlink:href", "img/mapmarkers/untsmap2.png")
+    //.attr("xlink:href", "img/mapmarkers/dark-nebula-29059-1920x1080.jpg")
+    .attr("xlink:href", "img/mapmarkers/untsmap2.png")
     .attr("transform", transform(d3.zoomIdentity));
 
 // Appends the "overlay" foreground element with the pattern defined previously
@@ -339,6 +379,8 @@ var bgNode = svg.selectAll("rect:not(#bg)")
       .style("opacity", 0.2)
       .attr("width", width*20)
       .attr("height", height*20)
+      .attr('x', 0)
+      .attr('y', 0)
       .attr("class", "otherRects")
       .attr("fill", "url(#bgPattern)")
       .attr("transform", transform(d3.zoomIdentity));
@@ -356,8 +398,6 @@ var zoomNode = svg.append("g")
 
 */
 
-
-
 /*
 
   .call(d3.zoom()
@@ -369,10 +409,36 @@ var zoomNode = svg.append("g")
 
 // .select("#zoomNode")
 
+// Appends "g" (group) elements according to the data in the paths1 coordinate array
+// These nodes will house everything related to lines on the map
+// Class is "lineNode"
+var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode)")
+  .data(centerCoordinatesLine(paths1), function(d) { return d.name; })
+  .enter().append("g")
+    .attr("class", "lineNode")
+    .attr("pointer-events", "none")
+    .attr("id", linegID)
+    .attr("transform", transform(d3.zoomIdentity));
+
+// Appends lines to all "lineNode" elements, starting from 0,0 (since they already originate at the appropriate coordinates) and ending at the second set of path coordinates
+var line = svg.selectAll(".lineNode").append("line")
+  .style("stroke", pathColor)
+  .style("stroke-width", pathWidth)
+  .style("stroke-linecap", "round")
+  .style("stroke-dasharray", pathStroke)
+  .style("opacity", pathOpacity)
+  .attr("x1", 0)
+  .attr("y1", 0)
+  .attr("id", lineID)
+  .attr("class", "lineEl")
+  //.attr("id", pathWidth2)
+  .attr("x2", (path2X))
+  .attr("y2", (path2Y));
+
 // Appends "g" (group) elements according to the data in the xy coordinate array
 // These nodes will house everything related to stars/points on map
 // Class is "groupNode"
-var groupNode = svg.selectAll("g:not(#zoomNode)")
+var groupNode = svg.selectAll("g:not(#zoomNode):not(.lineNode)")
   .data(centerCoordinates(xy), function(d) { return d.name; })
   .enter().append("g")
     .attr("class", "groupNode")
@@ -388,31 +454,6 @@ var groupNodeHover = svg.selectAll(".groupNode").append("g")
     .attr("pointer-events", "none")
     .attr("id", gHoverID);
     //.attr("transform", transform(d3.zoomIdentity));
-
-// Appends "g" (group) elements according to the data in the paths1 coordinate array
-// These nodes will house everything related to lines on the map
-// Class is "lineNode"
-var lineNode = svg.selectAll("g:not(.groupNode):not(#zoomNode):not(.groupNodeHover)")
-  .data(centerCoordinatesLine(paths1), function(d) { return d.name; })
-  .enter().append("g")
-    .attr("class", "lineNode")
-    .attr("pointer-events", "none")
-    .attr("id", linegID)
-    .attr("transform", transform(d3.zoomIdentity));
-
-// Appends lines to all "lineNode" elements, starting from 0,0 (since they already originate at the appropriate coordinates) and ending at the second set of path coordinates
-var line = svg.selectAll(".lineNode").append("line")
-  .style("stroke", "rgba(255,255,255,0.1)")
-  .style("stroke-width", pathWidth)
-  .style("stroke-linecap", "round")
-  .style("stroke-dasharray", pathStroke)
-  .attr("x1", 0)
-  .attr("y1", 0)
-  .attr("id", lineID)
-  .attr("class", "lineEl")
-  //.attr("id", pathWidth2)
-  .attr("x2", (path2X))
-  .attr("y2", (path2Y));
 
 // Appends icons for each node's center
 var starDot = svg.selectAll(".groupNode").append("svg:image")
@@ -455,6 +496,7 @@ var hoverCircle = svg.selectAll(".groupNode").append("circle")
   .attr("pointer-events", "all")
   .on("mouseover", handleMouseOverStar)
   .on("mouseout", handleMouseOutStar)
+  .on("click", handleClick)
   .attr("id", mainID);
   //.call(d3Zoom);
 
@@ -466,6 +508,8 @@ d3.selectAll(".lineEl").each( function(d, i){
 redraw();
 // Calls that function whenever window is resized
 window.addEventListener("resize", redraw);
+
+d3Zoom.scaleBy(svg, 2);
 
 }
 
@@ -482,7 +526,7 @@ function zoom() {
   bgStars.attr("transform", d3.event.transform);
 
   var bgPatternRect = svg.selectAll("#bgPatternRect");
-  bgPatternRect.attr("transform", d3.event.transform);
+  bgPatternRect.attr("transform", transformNSGrid(d3.event.transform));
 
   var line = svg.selectAll(".lineNode");
   line.attr("transform", transformNS(d3.event.transform));
@@ -521,7 +565,10 @@ function transformBG(t) {
 
 function transformNSGrid(t) {
   return function(d) {
-    //console.log(d[0])
+    //var bgPatternRect = svg.selectAll("#bgPatternRect");
+    //bgPatternRect.attr("x", -d3.event.transform.k*1920/t.applyX(d[0]));
+    //bgPatternRect.attr("y", -d3.event.transform.k*1080/t.applyY(d[1]));
+
     return "translate(" + (0.8 * t.applyX(d[0])) + ", " + (0.8 * t.applyY(d[1])) + ") scale(" + d3.event.transform.k + ")";
   };
 }
@@ -851,6 +898,12 @@ function handleMouseOutStar(d, i) {
     .attr("transform", "translate(" + ((-widthOfCardBefore / 2) + 5) + ", " + ((-heightOfCardBefore / 2) + 5) + ")");
 
     svg.selectAll(".cardComponents" + this.id).transition(1).remove();
+
+}
+
+function handleClick(d, i) {
+
+  d3Zoom.translateTo(svg, xy[this.id][0], xy[this.id][1]);
 
 }
 
