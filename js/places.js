@@ -47,6 +47,8 @@ var colors = [];
 // Icon filename for all nodes
 var markers = [];
 
+var popRs = [];
+
 // First coordinate set for lines
 var paths1 = [];
 // First coordinate set for lines, not adjusted for centering on screen
@@ -87,6 +89,7 @@ Papa.parse("places.csv", {
         descDescs.push(row.data[0][5]);
         colors.push(row.data[0][6]);
         markers.push(row.data[0][7]);
+        popRs.push(row.data[0][8]);
       }
     }
 
@@ -152,6 +155,22 @@ var quoteColor = (function(){
   return function(){
     a++;
     return colors[a];
+  }
+})();
+
+var flatCircleColor = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return colors[a];
+  }
+})();
+
+var popR = (function(){
+  var a = -1;
+  return function(){
+    a++;
+    return popRs[a];
   }
 })();
 
@@ -274,7 +293,7 @@ var hitBoxRadius = 30;
 
 // Width and height of color card
 //After hover event
-var widthOfCard = 220;
+var widthOfCard = 240;
 var heightOfCard = 310;
 // Before hover event (when it is invisible)
 var widthOfCardBefore = 50;
@@ -476,6 +495,14 @@ var starRing = svg.selectAll(".groupNode").append("circle")
   .style("fill", "none")
   .attr("class", "starCirclesRing")
   .attr("id", ringID);
+
+// Appends colored rings around node centers
+var flatCircle = svg.selectAll(".groupNode").append("circle")
+  .attr('pointer-events', 'none')
+  .attr("r", popR)
+  .style("opacity", 0.1)
+  .style("fill", flatCircleColor)
+  .attr("class", "flatCircle");
 
 // Appends main name/title of nodes
 var textCard = svg.selectAll(".groupNode").append("foreignObject")
