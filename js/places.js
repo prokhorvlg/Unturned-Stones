@@ -5,8 +5,8 @@ var margin = {top: 0, right: 0, bottom: 0, left: 0},
 
 // Defines procedure for elements that intercept zoom/pan events
 var d3Zoom = d3.zoom()
-  .scaleExtent([1, 4])
-  .translateExtent([[-2000 + width/2, -2000 + height/2], [2000 + width/2, 2000 + height/2]])
+  .scaleExtent([0.2, 4])
+  .translateExtent([[-3000 + width/2, -2000 + height/2], [3000 + width/2, 2000 + height/2]])
   .on("zoom", zoom);
 
 // Function that moves the hovered node/card to the top
@@ -80,13 +80,13 @@ Papa.parse("places.csv", {
         pathColors.push(row.data[0][7]);
         pathOpacitys.push(row.data[0][8]);
       }
-      else {
-        xy.push([parseInt(row.data[0][0]), parseInt(row.data[0][1])]);
-        starNames.push(row.data[0][2]);
-        quoteDescs.push(row.data[0][3]);
-        descDescs.push(row.data[0][4]);
-        colors.push(row.data[0][5]);
-        markers.push(row.data[0][6]);
+      else if (row.data[0][0] == "star"){
+        xy.push([parseInt(row.data[0][1]), parseInt(row.data[0][2])]);
+        starNames.push(row.data[0][3]);
+        quoteDescs.push(row.data[0][4]);
+        descDescs.push(row.data[0][5]);
+        colors.push(row.data[0][6]);
+        markers.push(row.data[0][7]);
       }
     }
 
@@ -365,7 +365,7 @@ var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
     .attr('y', 0)
     .attr('width', 1920)
     .attr('height', 1080)*/
-    .style("opacity", 0.3)
+    .style("opacity", 0)
     .attr("class", "bgStars")
     //.attr("xlink:href", "img/mapmarkers/dark-nebula-29059-1920x1080.jpg")
     .attr("xlink:href", "img/mapmarkers/untsmap2.png")
@@ -725,8 +725,6 @@ d3.select("#gHover_" + this.id).append("circle")
   .attr("class", "starCircles")
   .attr("class", "cardComponents" + this.id)
   .attr("id", "star_" + this.id);
-
-
 
   d3.select("#star_" + this.id).transition()
     .duration(200)
