@@ -67,6 +67,15 @@ var bgCoord = [[0 - (width*20.5/2),0 - (height*20.5/2)]];
 
 var multiConst = 1;
 
+var placeColors = { "homeColor": "#34D48F",
+    "coreColor": "#34D48F",
+    "colonialHomeColor": "#3D8FCE",
+    "colonialColor": "#3D8FCE",
+    "fringeColor": "#3D8FCE",
+    "riftColor": "#c04deb",
+    "deepColor": "#c04deb"
+  };
+
 // Parses CSV file with all node data, appends it to appropriate array
 // Relies on Papa library
 Papa.parse("places.csv", {
@@ -79,7 +88,9 @@ Papa.parse("places.csv", {
         paths1Uncentered.push([row.data[0][1], row.data[0][2]]);
         pathStrokes.push(row.data[0][5]);
         pathWidths.push(row.data[0][6]);
-        pathColors.push(row.data[0][7]);
+        //console.log(row.data[0][7]);
+        pathColors.push(placeColors[row.data[0][7].toString()].toString());
+        //console.log(placeColors[row.data[0][7].toString()]);
         pathOpacitys.push(row.data[0][8]);
       }
       else if (row.data[0][0] == "star"){
@@ -87,7 +98,7 @@ Papa.parse("places.csv", {
         starNames.push(row.data[0][3]);
         quoteDescs.push(row.data[0][4]);
         descDescs.push(row.data[0][5]);
-        colors.push(row.data[0][6]);
+        colors.push(placeColors[row.data[0][6].toString()].toString());
         markers.push(row.data[0][7]);
         popRs.push(row.data[0][8]);
       }
@@ -384,7 +395,7 @@ var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
     .attr('y', 0)
     .attr('width', 1920)
     .attr('height', 1080)*/
-    .style("opacity", 0)
+    .style("opacity", 0.3)
     .attr("class", "bgStars")
     //.attr("xlink:href", "img/mapmarkers/dark-nebula-29059-1920x1080.jpg")
     .attr("xlink:href", "img/mapmarkers/untsmap2.png")
