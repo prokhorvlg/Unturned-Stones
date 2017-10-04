@@ -395,7 +395,7 @@ var bgStars = svg.selectAll("rect:not(#bg):not(#bgPatternRect)")
     .attr('y', 0)
     .attr('width', 1920)
     .attr('height', 1080)*/
-    .style("opacity", 0.3)
+    .style("opacity", 0)
     .attr("class", "bgStars")
     //.attr("xlink:href", "img/mapmarkers/dark-nebula-29059-1920x1080.jpg")
     .attr("xlink:href", "img/mapmarkers/untsmap2.png")
