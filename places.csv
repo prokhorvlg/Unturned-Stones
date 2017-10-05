@@ -20,7 +20,7 @@ star,-66,-305,Swolo,,,colonialColor,accessible,20,,,,,,removed
 star,-176,-505,Chromadel,,,colonialHomeColor,startower1,35,,,,,,star
 star,-586,-645,Ivaar,,,fringeColor,accessible,12,,,,,,removed
 ,,,,,,,,,,,,,,
-path,0,0,100,-20,solid,4,homeColor,0.4,,America-Durabond,,,,path
+path,0,0,100,-20,solid,4,homeColor,0.5,,America-Durabond,,,,path
 path,0,0,116,32,solid,4,homeColor,0.5,,America-Ziraguan,,,,path
 path,0,0,-23,-140,solid,2,coreColor,0.4,,America-Liberty,,,,path
 path,0,0,-58,-105,solid,2,homeColor,0.5,,America-Korshid,,,,path
@@ -93,5 +93,8 @@ path,-60,30,-20,190,solid,2,colonialColor,0.3,,Kindle-Vadrine,,,,
 path,-60,30,-160,170,4 4,2,colonialColor,0.2,,Kindle-Prospect,,,,
 path,-160,170,-20,190,solid,2,colonialColor,0.2,,Prospect-Vadrine,,,,
 ,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,
 path,-20,190,390,62,4 4,2,colonialColor,0.2,,Vadrine-Qian,,,,
+path,230,220,279,262,solid,2,colonialColor,0.2,,Xiofang-Riley,,,,
+path,230,220,279,262,solid,2,colonialColor,0.4,,Xiofang-Bink,,,,
+,,,,,,,,,,,,,,
+path,680,150,590,162,solid,2,homeColor,0.5,,Krasanov-Eblan,,,,
