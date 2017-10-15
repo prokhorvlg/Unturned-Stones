@@ -94,9 +94,41 @@ a {
 /* Paragraph Styling */
 
 p {
+  padding-top: 20px;
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 20px;
+}
+
+.text-intro {
+  margin-top: 500px;
+  letter-spacing: 0.02em;
+  font-size: 20px;
+}
+
+.text-intro-special {
+  margin-top: 500px;
+  font-family: 'DolceVita';
+  letter-spacing: 1em;
+  font-size: 40px;
+  color: #e25a67;
+  text-align: center;
+}
+
+.intro2div {
+  padding-left: 200px;
+  padding-right: 200px;
+}
+@media (max-width: 1050px) {
+  .intro2div {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: justify;
+  }
+}
+
+.intro2emphasis {
+  color: #e25a67;
 }
 
 /* Section Background Colors */
@@ -111,6 +143,10 @@ p {
 .bg-dark2 {
   color: white;
   background-color: #222 !important; }
+
+.bg-dark3 {
+  color: white;
+  background-color: #111 !important; }
 
 .text-faded {
   color: rgba(255, 255, 255, 0.7); }
@@ -239,6 +275,10 @@ body {
   font-family: 'Roboto Condensed', Arial, sans-serif !important;
 }
 
+
+#headerOverImg {
+  padding-bottom: 20px;
+}
 header.masthead {
   position: relative;
   width: 100%;
@@ -246,7 +286,6 @@ header.masthead {
   text-align: center;
   color: white;
   background-image: url("../img/background-main/spacebg.png"), url("../img/background-main/mainbg.png");
-  /* background-position: center; */
   animation: 10s scrollBG2 infinite linear;
   background-size: 1920px 1717px, 1920px 1080px;
   }
@@ -264,8 +303,8 @@ header.masthead {
       font-family: 'DolceVita', Arial, sans-serif;
     }
     header.masthead .header-content .header-content-inner img {
-      width: 50px;
-      height: 50px;
+      width: 200px;
+      height: 200px;
     }
     header.masthead .header-content .header-content-inner .boldSpan {
       margin-left: 0.1em;
@@ -278,6 +317,12 @@ header.masthead {
       margin-bottom: 50px;
       color: rgba(255, 255, 255, 0.7); }
   @media (min-width: 768px) {
+    #headerOverImg {
+      display: none;
+    }
+    #headerInnerSpacing {
+      display: none;
+    }
     header.masthead {
       height: 80%;
       min-height: 600px; }
@@ -309,6 +354,11 @@ header.masthead {
             max-width: 80%;
             margin-right: auto;
             margin-left: auto; } }
+  @media (max-width: 768px) {
+    #headerInnerImg {
+      display: none;
+    }
+  }
 
 section.masthead {
   position: relative;
