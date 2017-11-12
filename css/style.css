@@ -1145,3 +1145,7 @@ section.masthead {
     content:url("../img/body/paci2_anim_1.png");
   }
 }
+
+.preloadIMG {
+  display: none;
+}
