@@ -72,6 +72,14 @@ h6 {
   line-height: 2em;
 }
 
+.scrollTitle {
+  font-family: 'Montserrat', Arial, sans-serif;
+  letter-spacing: 0.2em;
+  font-size: 1.2em;
+  color: #fff;
+  line-height: 2em;
+}
+
 .bodySuggest {
   font-family: 'Montserrat', Arial, sans-serif;
 }
@@ -998,6 +1006,10 @@ section.masthead {
     margin-right: -15px;
   }
 
+  ul .menu {
+    width: 100% !important;
+  }
+
   nav { margin: 0; }
 
   .toggle + a,
@@ -1111,8 +1123,12 @@ section.masthead {
 .contentHeaderContentInner {
   text-align: left;
   padding-left: 100px;
-
   width: 500px;
+  margin-top: auto;
+}
+
+.contentHeaderContentInnerScroll {
+  margin-top: auto;
 }
 
 #paci_anim {
@@ -1148,4 +1164,53 @@ section.masthead {
 
 .preloadIMG {
   display: none;
+}
+
+/*    QUOTE BLOCK     */
+
+.quoteBlock {
+  border: 2px solid white;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.2);
+
+  padding: 20px;
+  margin: 20px;
+}
+
+.quoteBlockContent {
+  text-align: justify;
+  font-size: 14px;
+}
+
+.quoteBlockSource {
+  text-align: right;
+  margin-top: -10px;
+}
+
+.quoteBlock h1 {
+  font-family: 'Montserrat', Arial, sans-serif;
+  letter-spacing: 0.2em;
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 2em;
+  color: #fff;
+  text-align: right;
+}
+
+.quoteBlock hr {
+  width: 100%;
+  border-width: 2px;
+  border-color: #fff;
+}
+
+.color {
+  color:  #f8a82b;
+}
+
+.agentRookQuoteBlock {
+
+}
+
+.shadow-top {
+  box-shadow: 0px 0px 300px rgba(0,0,0,1);
 }
