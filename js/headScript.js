@@ -23,7 +23,7 @@ $(document).ready(function() {
     $('.parallax_s8').parallax("50%", 0.8, true);
 
     $('.parallax_ns4_dossier').parallax("40%", 0.4, true);
-    $('.parallax_ns4_gadget').parallax("80%", -0.4, true);
+    $('.parallax_ns4_gadget').parallax("100%", -0.4, true);
 
     $('.parallax_ns1').parallax("50%", -0.1, true);
     $('.parallax_ns2').parallax("50%", -0.2, true);
