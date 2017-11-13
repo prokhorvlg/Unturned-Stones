@@ -34,7 +34,11 @@ $(document).ready(function() {
     $('.parallax_ns7').parallax("50%", -0.7, true);
     $('.parallax_ns8').parallax("50%", -0.8, true);
 
-
+    if ($(".vanishOnScroll").length) {
+      $( window ).scroll(function() {
+        $( ".vanishOnScroll" ).css( "opacity", "0" );
+      });
+    }
 
     /* for (var i = 1; i < 6; i++){
       animFunction(i);
