@@ -72,7 +72,8 @@ h6 {
 }
 
 .bodyTitle2 {
-  font-size: 4em;
+  font-size: 3em;
+  letter-spacing: 0em;
 }
 
 .bodyTitleDesc {
@@ -1117,7 +1118,6 @@ section.masthead {
   text-align: center;
   color: white;
   
-  /*background-size: cover;*/
   background-attachment: fixed;
   background-repeat: repeat-Y;
   background-position: 50% 50%;
@@ -1147,12 +1147,6 @@ section.masthead {
   }
 }
 
-/*.contentHeaderContentInner {
-  text-align: left;
-  padding-left: 15%;
-  margin-top: auto;
-}*/
-
 .contentHeaderContentInner {
   margin-top: auto;
 
@@ -1162,15 +1156,13 @@ section.masthead {
   align-items: center;
 }
 
-
-
 .contentHeaderContentInnerIMG {
   margin-left: -180px;
   margin-right: -10%;
 }
 
 .contentHeaderContentInnerC {
-  text-align: right;
+  text-align: center;
   
   padding-right: 100px;
 }
@@ -1206,6 +1198,11 @@ section.masthead {
   .contentHeaderContentInnerIMG {
     margin-left: 0;
     margin-right: 0;
+    padding-bottom: ;
+  }
+
+  .contentHeaderContentInnerIMG img {
+    width: 100%;
   }
 
   .contentHeaderContentInnerC {
@@ -1355,4 +1352,70 @@ section.masthead {
 
 .shadow-top {
   box-shadow: 0px 0px 300px rgba(0,0,0,1);
+}
+
+/*    STAT BLOCK     */
+
+.statBlock {
+  border: 2px solid white;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.2);
+
+  padding-top: 20px;
+  margin: 20px;
+}
+
+.statBlockContent {
+  font-size: 14px;
+}
+
+.statBlock hr {
+  width: 100%;
+  border-width: 2px;
+  border-color: #fff;
+}
+
+.statBlockContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.statBlockBody {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.statBlockBodyChild:nth-child(1n) {
+  text-align: right;
+  padding-right: 30px;
+  padding-top: 10px;
+  width: 200px;
+}
+
+.statBlockBodyChild:nth-child(2n) {
+  width: 2px;
+  background-color: white;
+  padding: 0;
+}
+
+.statBlockBodyChild:nth-child(3n) {
+  text-align: left;
+  padding-left: 30px;
+  padding-top: 10px;
+  width: 100%;
+}
+
+.statBlockContentChildH {
+  font-size: 14px;
+  padding-top: 6px;
+}
+
+.statBlockContentChild {
+  font-size: 14px;
+  padding-top: 6px;
 }
