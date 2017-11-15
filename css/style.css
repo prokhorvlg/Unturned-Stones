@@ -131,6 +131,10 @@ hr.right {
   margin-right: 0px;
 }
 
+.justifyText p {
+  text-align: justify;
+}
+
 
 /* Link Styling */
 
