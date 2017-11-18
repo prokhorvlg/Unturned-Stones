@@ -1365,39 +1365,26 @@ section.masthead {
   color:  #f8a82b;
 }
 
+/*    Common: Mass-manufactured equipment     */
+
 .colorCommon {
-  color: rgb(255,255,255);
+  color: #3DD20B;
   animation: colorCommon 2s infinite;
 }
 
 @keyframes colorCommon{
   0%{
-    color: #fff;
-  }
-  50%{
-    color: #ffdc87;
-  }
-  100%{
-    color: #fff;
-  }
-}
-
-.colorUncommon {
-  color: #3DD20B;
-  animation: colorUncommon 2s infinite;
-}
-
-@keyframes colorUncommon{
-  0%{
     color: #3DD20B;
   }
-  50%{
+  40%{
     color: #97d20b;
   }
-  100%{
+  80%{
     color: #3DD20B;
   }
 }
+
+/*    Rare: High-end, specialized tech     */
 
 .colorRare {
   color: #2F78FF;
@@ -1408,13 +1395,15 @@ section.masthead {
   0%{
     color: #2F78FF;
   }
-  50%{
+  40%{
     color: #2faeff;
   }
-  100%{
+  80%{
     color: #2F78FF;
   }
 }
+
+/*    Epic: Special-purpose, black ops gear     */
 
 .colorEpic {
   color: #9e2ddf;
@@ -1450,6 +1439,8 @@ section.masthead {
   }
 }
 
+/*    Legendary: Rift/alien-based prototypes     */
+
 .colorLegendary {
   color: #00ffff;
   animation: colorLegendary 2s infinite;
@@ -1459,11 +1450,30 @@ section.masthead {
   0%{
     color: #00ffff;
   }
-  50%{
+  40%{
     color: #00ff9c;
   }
-  100%{
+  80%{
     color: #00ffff;
+  }
+}
+
+/*    Exotic: One-off artifacts     */
+
+.colorExotic {
+  color: #f8a82b;
+  animation: colorExotic 2s infinite;
+}
+
+@keyframes colorExotic{
+  0%{
+    color: #f8a82b;
+  }
+  40%{
+    color: #f8e22b;
+  }
+  80%{
+    color: #f8a82b;
   }
 }
 
