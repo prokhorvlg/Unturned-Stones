@@ -6,7 +6,41 @@ function animFunction(i){
 
 }
 
+function interactEl(el, target){
+
+  if (target == "close") {
+    $('.interactiveImageChild').each(function () {
+      $(this).removeClass('interactiveImageChildActive');
+    });
+    $('.interactiveImageBoxChild').each(function () {
+      //$(this).css('display', 'none');
+      $(this).css('opacity', '0');
+    });
+  }
+  else {
+    $('.interactiveImageChild').each(function () {
+      $(this).removeClass('interactiveImageChildActive');
+    });
+    el.addClass('interactiveImageChildActive');
+
+    $('.interactiveImageBoxChild').each(function () {
+      //$(this).css('display', 'none');
+      $(this).css('opacity', '0');
+    });
+    //$('.' + target).css('display', 'block');
+    $('.' + target).css('opacity', '1');
+  }
+
+}
+
 $(document).ready(function() {
+
+  $('.interactiveImageChild').each(function () {
+    $(this).on("click", function () {
+        interactEl($(this), $(this).attr("data-interact"));
+
+    });
+  });
 
   // Detects browser; only runs certain scripts on desktop browsers.
   if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -39,6 +73,8 @@ $(document).ready(function() {
         $( ".vanishOnScroll" ).css( "opacity", "0" );
       });
     }
+
+
 
     /* for (var i = 1; i < 6; i++){
       animFunction(i);
