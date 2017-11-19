@@ -71,6 +71,16 @@ h6 {
   line-height: 2em;
 }
 
+.bodyTitleSpaceship {
+  font-family: 'Montserrat', Arial, sans-serif;
+  letter-spacing: 0.3em;
+  font-size: 2em;
+  line-height: 2em;
+  text-transform: uppercase;
+
+  margin-bottom: -10px;
+}
+
 .bodyTitle2 {
   font-size: 3em;
   letter-spacing: 0em;
@@ -1148,6 +1158,27 @@ section.masthead {
   background-size: 1920px 3000px;
 }
 
+.contentHeaderSpaceship {
+  width: 100%;
+  min-height: auto;
+  height: 100%;
+  background-color: #151515;
+
+  text-align: center;
+  color: white;
+  
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  background-size: cover;
+}
+@media (max-width : 991px) {
+  .contentHeaderSpaceship {
+    margin-top: 107px;
+  }
+}
+
 .contentHeaderContent {
   height: 100%;
 
@@ -1158,6 +1189,72 @@ section.masthead {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.contentHeaderContentSpaceship {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background-position: 50% 50%;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+@media (max-width : 991px) {
+  .contentHeaderContentSpaceship {
+    margin-bottom: -20px;
+  }
+}
+@media (max-width : 1199px) {
+  .contentHeaderContentSpaceship {
+    justify-content: flex-end;
+    align-items:  center;
+  }
+}
+
+.contentHeaderContentInnerSpaceship {
+  display: flex;
+  flex-direction: column;
+  /* vertical */
+  justify-content: flex-start;
+  /* horizontal */
+  align-items:  flex-start;
+
+  /* (img-height / img-width * container-width) = height */
+  /* (1080 / 1920 * 100) = 56.25%*/
+}
+@media (max-width : 1199px) {
+  .contentHeaderContentInnerSpaceship {
+    /* vertical */
+    justify-content: flex-end;
+    /* horizontal */
+    align-items:  center;
+  }
+}
+
+.sc-boring {
+  padding-left: 50px;
+  padding-right: 150px;
+  margin-top: 170px;
+  text-align: left;
+  background-color: rgba(0,0,0,0.5);
+}
+@media (max-width : 1199px) {
+  .sc-boring {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 100vw;
+    text-align: center;
+    background-color: #121212;
+  }
+  .sc-boring hr {
+    margin: 5px auto;
+  }
 }
 
 @keyframes scrollBGBody{
@@ -1185,7 +1282,6 @@ section.masthead {
 
 .contentHeaderContentInnerC {
   text-align: center;
-  
   padding-right: 100px;
 }
 

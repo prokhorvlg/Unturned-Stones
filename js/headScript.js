@@ -33,13 +33,43 @@ function interactEl(el, target){
 
 }
 
+function resizeHeader(elClass, fac){
+
+  if ($( window ).width() < 992){
+    $('.' + elClass).each(function () {
+      $(this).css("height", (($( window ).width() * fac) + 65) + "px");
+    });
+  }
+  else if ($( window ).width() > 992 && $( window ).width() < 1200) {
+    $('.' + elClass).each(function () {
+      $(this).css("height", (($( window ).width() * fac) + 85) + "px");
+    });
+  }
+  else {
+    $('.' + elClass).each(function () {
+      $(this).css("height", ($( window ).width() * fac) + "px");
+    });
+  }
+
+}
+
 $(document).ready(function() {
 
   $('.interactiveImageChild').each(function () {
     $(this).on("click", function () {
         interactEl($(this), $(this).attr("data-interact"));
-
     });
+  });
+
+  var resizeTimer;
+  resizeHeader('resizeHeader', 0.5625);
+  $(window).on('resize', function(e) {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+
+      resizeHeader('resizeHeader', 0.5625);
+              
+    }, 30);
   });
 
   // Detects browser; only runs certain scripts on desktop browsers.
