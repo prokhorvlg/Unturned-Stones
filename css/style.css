@@ -1235,12 +1235,12 @@ section.masthead {
   }
 }
 
+
 .sc-boring {
   padding-left: 50px;
   padding-right: 150px;
   margin-top: 170px;
   text-align: left;
-  background-color: rgba(0,0,0,0.5);
 }
 @media (max-width : 1199px) {
   .sc-boring {
@@ -1253,6 +1253,50 @@ section.masthead {
     background-color: #121212;
   }
   .sc-boring hr {
+    margin: 5px auto;
+  }
+}
+
+/*   STYLES FOR STARSCRAPER MINKE   */
+
+.colorMinke {
+  color: #8a9cdd;
+}
+
+.sc-minkeContainer {
+  display: flex;
+  flex-direction: column;
+  /* vertical */
+  justify-content: flex-start;
+  /* horizontal */
+  align-items:  flex-end;
+}
+@media (max-width : 1199px) {
+  .sc-minkeContainer {
+    /* vertical */
+    justify-content: flex-end;
+    /* horizontal */
+    align-items:  center;
+  }
+}
+
+.sc-minke {
+  padding-left: 50px;
+  padding-right: 15vw;
+  margin-top: 200px;
+  text-align: center;
+}
+@media (max-width : 1199px) {
+  .sc-minke {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 100vw;
+    text-align: center;
+    background-color: #121212;
+  }
+  .sc-minke hr {
     margin: 5px auto;
   }
 }
@@ -1790,4 +1834,12 @@ section.masthead {
   margin-left: 70px;
 
   text-align: justify;
+}
+
+/* Bootstrap Mod */
+
+@media (min-width: 1200px){
+  .container {
+      max-width: 1440px;
+  }
 }
